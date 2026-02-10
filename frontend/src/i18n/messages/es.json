@@ -1,5 +1,55 @@
 {
-  "home": {
-    "title": "Hola mundo 🇪🇸"
-  }
+    "home": {
+        "title": "Las reglas por las que vivo (hasta que no)",
+        "subtitle": "Un espacio silencioso para observar la distancia entre la intención y el acto.",
+        "hint": "No hay nada que hacer todavía. Solo leer.",
+        "cta": {
+            "getStarted": "Comenzar",
+            "learnMore": "Saber Más",
+            "begin": "Inicia Tu Viaje"
+        },
+        "features": {
+            "title": "Por Qué Importan Las Reglas",
+            "focus": {
+                "title": "Mantente Enfocado",
+                "description": "Define los principios que guían tus decisiones y te mantienen alineado con tus valores."
+            },
+            "consistency": {
+                "title": "Construye Consistencia",
+                "description": "Aplica tus reglas consistentemente y desarrolla hábitos sostenibles que formen tu vida."
+            },
+            "progress": {
+                "title": "Sigue Tu Progreso",
+                "description": "Monitorea qué tan bien sigues tus reglas y celebra tus logros en el camino."
+            },
+            "adapt": {
+                "title": "Reflexiona y Adapta",
+                "description": "Revisa tus reglas regularmente y perfecciónalas según lo que aprendas de ti mismo."
+            }
+        },
+        "howItWorks": {
+            "title": "Cómo Funciona",
+            "step1": {
+                "title": "Crea Tus Reglas",
+                "description": "Escribe las reglas que representan la persona que quieres ser. Sé específico e intencional."
+            },
+            "step2": {
+                "title": "Establece Tus Objetivos",
+                "description": "Define hitos y rastrea eventos relacionados con el seguimiento de tus reglas. Hazlo medible."
+            },
+            "step3": {
+                "title": "Sigue y Rastrea",
+                "description": "Registra tu progreso y mantente responsable. Ve tu compromiso traducirse en resultados reales."
+            }
+        },
+        "footer": {
+            "title": "¿Listo para Comenzar?"
+        }
+    },
+    "nav": {
+        "profile": "Yo",
+        "rules": "Reglas",
+        "fractures": "Rupturas",
+        "archive": "Archivo"
+    }
 }

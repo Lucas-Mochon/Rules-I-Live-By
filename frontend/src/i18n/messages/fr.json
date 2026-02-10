@@ -1,5 +1,55 @@
 {
-  "home": {
-    "title": "Bonjour le monde 🇫🇷"
-  }
+    "home": {
+        "title": "Les règles que je me fixe (jusqu’à ce que je les brise)",
+        "subtitle": "Un espace calme pour observer l’écart entre ce que j’énonce et ce que je fais.",
+        "hint": "Il n'y a rien à faire pour l'instant. Juste lire.",
+        "cta": {
+            "getStarted": "Commencer",
+            "learnMore": "En Savoir Plus",
+            "begin": "Débuter Votre Parcours"
+        },
+        "features": {
+            "title": "Pourquoi Les Règles Importent",
+            "focus": {
+                "title": "Restez Concentré",
+                "description": "Définissez les principes qui guident vos décisions et vous maintiennent alignés avec vos valeurs."
+            },
+            "consistency": {
+                "title": "Construisez La Cohérence",
+                "description": "Appliquez vos règles régulièrement et développez des habitudes durables qui façonnent votre vie."
+            },
+            "progress": {
+                "title": "Suivez Votre Progression",
+                "description": "Surveillez votre respect des règles et célébrez vos victoires en chemin."
+            },
+            "adapt": {
+                "title": "Réfléchissez et Adaptez",
+                "description": "Évaluez régulièrement vos règles et affinez-les en fonction de ce que vous apprenez sur vous-même."
+            }
+        },
+        "howItWorks": {
+            "title": "Comment Ça Fonctionne",
+            "step1": {
+                "title": "Créez Vos Règles",
+                "description": "Notez les règles qui représentent la personne que vous voulez devenir. Soyez précis et intentionnel."
+            },
+            "step2": {
+                "title": "Définissez Vos Objectifs",
+                "description": "Établissez des jalons et suivez les événements liés à vos règles. Rendez-les mesurables."
+            },
+            "step3": {
+                "title": "Suivez et Tracez",
+                "description": "Enregistrez votre progression et restez responsable. Voyez votre engagement se transformer en résultats concrets."
+            }
+        },
+        "footer": {
+            "title": "Prêt à Commencer?"
+        }
+    },
+    "nav": {
+        "profile": "Soi",
+        "rules": "Règles",
+        "fractures": "Fractures",
+        "archive": "Archive"
+    }
 }

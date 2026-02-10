@@ -1,5 +1,55 @@
 {
-  "home": {
-    "title": "Hello world"
-  }
+    "home": {
+        "title": "Rules I live by (until I don’t)",
+        "subtitle": "A quiet place to observe the distance between what I intend and what I do.",
+        "hint": "Nothing to do yet. Just read.",
+        "cta": {
+            "getStarted": "Get Started",
+            "learnMore": "Learn More",
+            "begin": "Begin Your Journey"
+        },
+        "features": {
+            "title": "Why Rules Matter",
+            "focus": {
+                "title": "Stay Focused",
+                "description": "Define the principles that guide your decisions and keep you aligned with your values."
+            },
+            "consistency": {
+                "title": "Build Consistency",
+                "description": "Apply your rules consistently and develop sustainable habits that shape your life."
+            },
+            "progress": {
+                "title": "Track Progress",
+                "description": "Monitor how well you follow your rules and celebrate your wins along the way."
+            },
+            "adapt": {
+                "title": "Reflect & Adapt",
+                "description": "Review your rules regularly and refine them based on what you learn about yourself."
+            }
+        },
+        "howItWorks": {
+            "title": "How It Works",
+            "step1": {
+                "title": "Create Your Rules",
+                "description": "Write down the rules that represent the person you want to become. Be specific and intentional."
+            },
+            "step2": {
+                "title": "Set Your Goals",
+                "description": "Define milestones and track events related to following your rules. Make it measurable."
+            },
+            "step3": {
+                "title": "Follow & Track",
+                "description": "Log your progress and stay accountable. See your commitment translate into real results."
+            }
+        },
+        "footer": {
+            "title": "Ready to Start?"
+        }
+    },
+    "nav": {
+        "profile": "Self",
+        "rules": "Rules",
+        "fractures": "Fractures",
+        "archive": "Archive"
+    }
 }

@@ -1,6 +1,7 @@
 import {notFound} from 'next/navigation';
 import {I18nProvider} from '@/src/i18n/I18nProvider';
 import {locales, Locale} from '@/src/i18n/config';
+import Navbar from '@/src/components/navbar';
 
 export default async function LocaleLayout({
   children,
@@ -21,7 +22,8 @@ export default async function LocaleLayout({
 
   return (
     <I18nProvider locale={locale as Locale} messages={messages}>
-      {children}
+        <Navbar />
+        {children}
     </I18nProvider>
   );
 }
