@@ -1,7 +1,6 @@
 package com.RulesILiveBy.controller;
 
 import com.RulesILiveBy.entity.User;
-import com.RulesILiveBy.dto.CreateUserDto;
 import com.RulesILiveBy.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,13 +13,6 @@ public class UserController {
 
     public UserController(UserService userService) {
         this.userService = userService;
-    }
-
-    // POST /users
-    @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody CreateUserDto createUserDTO) {
-        User created = userService.createUser(createUserDTO);
-        return ResponseEntity.ok(created);
     }
 
     // GET /users/{id}
