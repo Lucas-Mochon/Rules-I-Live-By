@@ -1,21 +1,7 @@
-import {NextIntlClientProvider} from 'next-intl';
-import {getMessages, getLocale} from 'next-intl/server';
-
-export default async function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const locale = await getLocale();
-  const messages = await getMessages();
-
+export default function RootLayout({children,}: {children: React.ReactNode;}) {
   return (
-    <html lang={locale}>
-      <body>
-        <NextIntlClientProvider messages={messages}>
-          {children}
-        </NextIntlClientProvider>
-      </body>
+    <html>
+      <body>{children}</body>
     </html>
   );
 }
