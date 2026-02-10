@@ -6,7 +6,7 @@ import com.RulesILiveBy.common.ApiResponse;
 import com.RulesILiveBy.dto.auth.CreateUserDto;
 import com.RulesILiveBy.dto.auth.LoginDto;
 import com.RulesILiveBy.dto.auth.LoginResponse;
-import com.RulesILiveBy.dto.auth.RefreshTokenRequest;
+import com.RulesILiveBy.dto.auth.TokenRequest;
 import com.RulesILiveBy.service.AuthService;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,11 +42,11 @@ public class AuthController {
     }
 
     @PostMapping("/refresh")
-    public ResponseEntity<ApiResponse<String>> refresh(@RequestBody RefreshTokenRequest request) {
-        String refreshToken = request.getJwtToken();
+    public ResponseEntity<ApiResponse<String>> refresh(@RequestBody TokenRequest request) {
+        String refreshToken = request.getToken();
 
         if (refreshToken == null || refreshToken.isEmpty()) {
-            return ResponseEntity.badRequest().body(ApiResponse.error("Token manquant"));
+            return ResponseEntity.badRequest().body(ApiResponse.error("Missing token"));
         }
 
         try {
@@ -56,4 +56,21 @@ public class AuthController {
             return ResponseEntity.status(401).body(ApiResponse.error(e.getMessage()));
         }
     }
+
+    @PostMapping("/logout")
+    public ResponseEntity<ApiResponse<String>> logout(@RequestBody TokenRequest request) {
+        String refreshToken = request.getToken();
+
+        if (refreshToken == null || refreshToken.isEmpty()) {
+            return ResponseEntity.badRequest().body(ApiResponse.error("Missing token"));
+        }
+
+        try {
+            authService.logout(refreshToken);
+            return ResponseEntity.ok(ApiResponse.success("Successfully logged out"));
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(401).body(ApiResponse.error(e.getMessage()));
+        }
+    }
+
 }

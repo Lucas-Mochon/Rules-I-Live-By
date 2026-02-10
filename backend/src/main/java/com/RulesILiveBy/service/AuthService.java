@@ -109,4 +109,27 @@ public class AuthService {
 
         return newJwtToken;
     }
+
+    @Transactional
+    public void logout(String refreshToken) {
+        if (!jwtUtil.isTokenValid(refreshToken)) {
+            throw new RuntimeException("Invalid refresh token");
+        }
+
+        String userId = jwtUtil.getUserIdFromToken(refreshToken);
+        Optional<User> userOpt = userDao.findById(userId);
+
+        if (userOpt.isEmpty()) {
+            throw new RuntimeException("User not found");
+        }
+
+        User user = userOpt.get();
+
+        if (!user.getRefreshToken().equals(refreshToken)) {
+            throw new RuntimeException("Refresh token mismatch");
+        }
+
+        user.setRefreshToken(null);
+        userDao.save(user);
+    }
 }

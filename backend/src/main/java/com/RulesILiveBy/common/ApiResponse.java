@@ -1,6 +1,8 @@
 package com.RulesILiveBy.common;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiResponse<T> {
@@ -8,20 +10,26 @@ public class ApiResponse<T> {
     private String message;
     private T data;
     private String error;
-    private long timestamp;
+    private String timestamp;
 
     public ApiResponse(boolean success, String message, T data) {
         this.success = success;
         this.message = message;
         this.data = data;
-        this.timestamp = System.currentTimeMillis();
+        this.timestamp = getCurrentTimestamp();
     }
 
     public ApiResponse(boolean success, String message, String error) {
         this.success = success;
         this.message = message;
         this.error = error;
-        this.timestamp = System.currentTimeMillis();
+        this.timestamp = getCurrentTimestamp();
+    }
+
+    private static String getCurrentTimestamp() {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        return now.format(formatter);
     }
 
     public boolean isSuccess() {
@@ -56,11 +64,11 @@ public class ApiResponse<T> {
         this.error = error;
     }
 
-    public long getTimestamp() {
+    public String getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(long timestamp) {
+    public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
 
