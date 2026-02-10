@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.RulesILiveBy.dao.UserDao;
-import com.RulesILiveBy.dto.CreateUserDto;
-import com.RulesILiveBy.dto.LoginDto;
-import com.RulesILiveBy.dto.LoginResponse;
+import com.RulesILiveBy.dto.auth.CreateUserDto;
+import com.RulesILiveBy.dto.auth.LoginDto;
+import com.RulesILiveBy.dto.auth.LoginResponse;
 import com.RulesILiveBy.entity.User;
 import com.RulesILiveBy.utils.JwtUtil;
 
@@ -18,11 +18,12 @@ import com.RulesILiveBy.utils.JwtUtil;
 public class AuthService {
     private final UserDao userDao;
     private final PasswordEncoder passwordEncoder;
-    private final JwtUtil jwtUtil = new JwtUtil();
+    private final JwtUtil jwtUtil;
 
-    public AuthService(UserDao userDao, PasswordEncoder passwordEncoder) {
+    public AuthService(UserDao userDao, PasswordEncoder passwordEncoder, JwtUtil jwtUtil) {
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
+        this.jwtUtil = jwtUtil;
     }
 
     @Transactional
@@ -80,5 +81,32 @@ public class AuthService {
                 existingUser.getEmail(),
                 existingUser.getUsername(),
                 jwtToken);
+    }
+
+    @Transactional
+    public String refresh(String refreshToken) {
+        if (!jwtUtil.isTokenValid(refreshToken)) {
+            throw new RuntimeException("Invalid refresh token");
+        }
+
+        String userId = jwtUtil.getUserIdFromToken(refreshToken);
+        Optional<User> userOpt = userDao.findById(userId);
+
+        if (userOpt.isEmpty()) {
+            throw new RuntimeException("User not found");
+        }
+
+        User user = userOpt.get();
+
+        if (!user.getRefreshToken().equals(refreshToken)) {
+            throw new RuntimeException("Refresh token mismatch");
+        }
+
+        String newJwtToken = jwtUtil.generateJwtToken(user);
+        String newRefreshToken = jwtUtil.generateRefreshToken(user);
+        user.setRefreshToken(newRefreshToken);
+        userDao.save(user);
+
+        return newJwtToken;
     }
 }

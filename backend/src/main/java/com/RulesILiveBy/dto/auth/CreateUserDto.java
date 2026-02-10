@@ -1,4 +1,4 @@
-package com.RulesILiveBy.dto;
+package com.RulesILiveBy.dto.auth;
 
 import lombok.Data;
 

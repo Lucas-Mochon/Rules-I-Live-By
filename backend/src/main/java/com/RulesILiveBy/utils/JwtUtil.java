@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.crypto.SecretKey;
 
+import org.springframework.stereotype.Component;
+
 import com.RulesILiveBy.entity.User;
 
 import io.github.cdimascio.dotenv.Dotenv;
@@ -14,6 +16,7 @@ import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.Keys;
 
+@Component
 public class JwtUtil {
     private final Dotenv dotenv = Dotenv.load();
     private final SecretKey key;
@@ -61,26 +64,15 @@ public class JwtUtil {
 
     public boolean isTokenValid(String token) {
         try {
-            Jwts.parser()
-                    .verifyWith(key)
-                    .build()
-                    .parseSignedClaims(token);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-
-    public boolean isTokenExpired(String token) {
-        try {
             Claims claims = Jwts.parser()
                     .verifyWith(key)
                     .build()
                     .parseSignedClaims(token)
                     .getPayload();
-            return claims.getExpiration().before(new Date());
+
+            return !claims.getExpiration().before(new Date());
         } catch (ExpiredJwtException e) {
-            return true;
+            return false;
         } catch (Exception e) {
             return false;
         }

@@ -2,9 +2,11 @@ package com.RulesILiveBy.controller;
 
 import org.springframework.http.ResponseEntity;
 
-import com.RulesILiveBy.dto.CreateUserDto;
-import com.RulesILiveBy.dto.LoginDto;
-import com.RulesILiveBy.dto.LoginResponse;
+import com.RulesILiveBy.common.ApiResponse;
+import com.RulesILiveBy.dto.auth.CreateUserDto;
+import com.RulesILiveBy.dto.auth.LoginDto;
+import com.RulesILiveBy.dto.auth.LoginResponse;
+import com.RulesILiveBy.dto.auth.RefreshTokenRequest;
 import com.RulesILiveBy.service.AuthService;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,9 +24,9 @@ public class AuthController {
     public ResponseEntity<Object> register(@RequestBody CreateUserDto createUserDTO) {
         try {
             LoginResponse response = authService.register(createUserDTO);
-            return ResponseEntity.ok(response);
+            return ResponseEntity.ok(ApiResponse.success(response));
         } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage()));
         }
     }
 
@@ -33,9 +35,25 @@ public class AuthController {
     public ResponseEntity<Object> login(@RequestBody LoginDto loginDto) {
         try {
             LoginResponse response = authService.login(loginDto);
-            return ResponseEntity.ok(response);
+            return ResponseEntity.ok(ApiResponse.success(response));
         } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage()));
+        }
+    }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<ApiResponse<String>> refresh(@RequestBody RefreshTokenRequest request) {
+        String refreshToken = request.getJwtToken();
+
+        if (refreshToken == null || refreshToken.isEmpty()) {
+            return ResponseEntity.badRequest().body(ApiResponse.error("Token manquant"));
+        }
+
+        try {
+            String newJwtToken = authService.refresh(refreshToken);
+            return ResponseEntity.ok(ApiResponse.success(newJwtToken));
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(401).body(ApiResponse.error(e.getMessage()));
         }
     }
 }
