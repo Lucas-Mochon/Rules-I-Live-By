@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.RulesILiveBy.dao.UserDao;
 import com.RulesILiveBy.dto.CreateUserDto;
@@ -24,11 +25,13 @@ public class AuthService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @Transactional
     public LoginResponse register(CreateUserDto createUserDTO) {
         Optional<User> existingUser = userDao.findByEmail(createUserDTO.getEmail());
         if (existingUser.isPresent()) {
             throw new RuntimeException("Email already in use");
         }
+
         User user = new User();
         user.setEmail(createUserDTO.getEmail());
         user.setUsername(createUserDTO.getUsername());
@@ -38,35 +41,44 @@ public class AuthService {
         user.setUpdatedAt(LocalDateTime.now());
 
         User savedUser = userDao.save(user);
-        savedUser.setJwtToken(jwtUtil.generateJwtToken(savedUser));
+
+        String refreshToken = jwtUtil.generateRefreshToken(savedUser);
+        savedUser.setRefreshToken(refreshToken);
         userDao.save(savedUser);
+
+        String jwtToken = jwtUtil.generateJwtToken(savedUser);
 
         return new LoginResponse(
                 savedUser.getId(),
                 savedUser.getEmail(),
                 savedUser.getUsername(),
-                savedUser.getJwtToken());
+                jwtToken);
     }
 
+    @Transactional
     public LoginResponse login(LoginDto loginDto) {
         Optional<User> user = userDao.findByEmail(loginDto.getEmail());
-        if (user.isPresent()) {
-            User existingUser = user.get();
-            if (passwordEncoder.matches(loginDto.getPassword(), existingUser.getPassword())) {
-                String token = jwtUtil.generateJwtToken(existingUser);
-                existingUser.setJwtToken(token);
-                userDao.save(existingUser);
 
-                return new LoginResponse(
-                        existingUser.getId(),
-                        existingUser.getEmail(),
-                        existingUser.getUsername(),
-                        existingUser.getJwtToken());
-            } else {
-                throw new RuntimeException("Invalid email or password");
-            }
-        } else {
+        if (user.isEmpty()) {
             throw new RuntimeException("Invalid email or password");
         }
+
+        User existingUser = user.get();
+
+        if (!passwordEncoder.matches(loginDto.getPassword(), existingUser.getPassword())) {
+            throw new RuntimeException("Invalid email or password");
+        }
+
+        String refreshToken = jwtUtil.generateRefreshToken(existingUser);
+        existingUser.setRefreshToken(refreshToken);
+        userDao.save(existingUser);
+
+        String jwtToken = jwtUtil.generateJwtToken(existingUser);
+
+        return new LoginResponse(
+                existingUser.getId(),
+                existingUser.getEmail(),
+                existingUser.getUsername(),
+                jwtToken);
     }
 }
