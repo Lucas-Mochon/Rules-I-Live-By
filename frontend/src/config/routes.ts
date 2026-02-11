@@ -1,6 +1,12 @@
 export const PUBLIC_ROUTES = ['user/login', 'user/register'];
 
-export const PROTECTED_ROUTES = ['/dashboard'];
+export const PROTECTED_ROUTES = [
+    '/dashboard',
+    '/profile',
+    '/rules',
+    '/archive',
+    '/broken',
+];
 
 export const AUTH_ROUTES = [...PUBLIC_ROUTES, ...PROTECTED_ROUTES];
 
