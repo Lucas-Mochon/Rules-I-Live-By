@@ -1,5 +1,6 @@
 'use client';
 
+import Background from '@/src/components/background';
 import {useI18n} from '@/src/i18n/useI18n';
 import Link from 'next/link';
 
@@ -7,7 +8,7 @@ export default function HomePage() {
   const {t} = useI18n();
 
   return (
-    <main className="min-h-screen bg-neutral-50">
+    <Background>
       <section className="px-6 py-20 sm:py-32">
         <div className="mx-auto max-w-3xl space-y-8">
           <div className="space-y-4">
@@ -174,6 +175,6 @@ export default function HomePage() {
           </Link>
         </div>
       </section>
-    </main>
+    </Background>
   );
 }

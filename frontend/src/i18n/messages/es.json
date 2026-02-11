@@ -51,5 +51,15 @@
         "rules": "Reglas",
         "fractures": "Rupturas",
         "archive": "Archivo"
+    },
+    "auth": {
+        "username": "Nombre de usuario",
+        "password": "Contraseña",
+        "email": "Correo electrónico",
+        "login": "Iniciar sesión",
+        "register": "Registrarse",
+        "registration": "Registro",
+        "no_account": "¿No tienes una cuenta? ",
+        "have_account": "¿Ya tienes una cuenta? "
     }
 }

@@ -16,8 +16,8 @@ export default function Navbar() {
   const {t} = useI18n();
 
   return (
-    <nav className="fixed left-4 top-1/8 -translate-y-1/2 z-50">
-      <ul className="flex flex-col gap-4 rounded-2xl bg-white/70 backdrop-blur-md shadow-lg px-3 py-4">
+    <nav className="fixed left-4 top-1/6 -translate-y-1/2 z-50">
+      <ul className="flex flex-col gap-4 rounded-2xl bg-orange-50 backdrop-blur-md shadow-lg px-3 py-4">
         {navItems.map((item) => {
           const active = pathname.includes(item.path);
 
@@ -30,7 +30,7 @@ export default function Navbar() {
                   transition-all duration-300
                   ${active
                     ? 'bg-neutral-900 text-white'
-                    : 'text-neutral-500 hover:text-neutral-900'}
+                    : 'text-neutral-700 hover:text-orange-500'}
                 `}
               >
                 <span
