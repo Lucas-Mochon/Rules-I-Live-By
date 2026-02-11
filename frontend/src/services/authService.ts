@@ -40,7 +40,11 @@ export class AuthService {
         return res;
     }
 
-    logout() {
+    async logout() {
+        const token = this.authStore.getToken();
+        if (token) {
+            await this.api.logout(token);
+        }
         this.authStore.logout();
         this.userService.removeUser();
     }

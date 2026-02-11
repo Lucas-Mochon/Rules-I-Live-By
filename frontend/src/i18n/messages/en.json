@@ -66,6 +66,7 @@
         "register": "Register",
         "registration": "Sign Up",
         "no_account": "Don't have an account? ",
-        "have_account": "Already have an account? "
+        "have_account": "Already have an account? ",
+        "logout": "Logout"
     }
 }

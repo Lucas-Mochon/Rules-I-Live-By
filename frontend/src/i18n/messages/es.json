@@ -66,6 +66,7 @@
         "register": "Registrarse",
         "registration": "Registro",
         "no_account": "¿No tienes una cuenta? ",
-        "have_account": "¿Ya tienes una cuenta? "
+        "have_account": "¿Ya tienes una cuenta? ",
+        "logout": "Cerrar sesión"
     }
 }

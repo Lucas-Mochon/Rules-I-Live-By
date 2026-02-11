@@ -32,4 +32,22 @@ export class AuthApiService extends AbstractApiService {
         if (!res.success) throw new Error(res.message);
         return res.data;
     }
+
+    async refresh(token: string): Promise<string> {
+        const res: Response<string> = await this.get('/users/me', {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        if (!res.success) throw new Error(res.message);
+        return res.data;
+    }
+
+    async logout(token: string): Promise<void> {
+        await this.post('/auth/logout', {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+    }
 }

@@ -4,13 +4,16 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useI18n } from '@/src/i18n/useI18n';
 import { useEffect, useState } from 'react';
-import { HiMenu, HiX } from 'react-icons/hi';
 import { UserService } from '../services/userService';
+import { AuthService } from '../services/authService';
+import { HiMenu, HiX } from 'react-icons/hi';
+import { GiExitDoor } from 'react-icons/gi';
 
 export default function Navbar() {
     const pathname = usePathname();
     const { t, locale } = useI18n();
     const userService = UserService.getInstance();
+    const authService = AuthService.getInstance();
 
     const [user, setUser] = useState(userService.getUser());
     const [mobileOpen, setMobileOpen] = useState(false);
@@ -30,6 +33,11 @@ export default function Navbar() {
     const items = user
         ? [{ key: 'dashboard', path: '/dashboard' }, ...commonItems]
         : [];
+
+    const handleLogout = () => {
+        authService.logout();
+        setMobileOpen(false);
+    };
 
     return (
         <nav className="w-full fixed top-0 left-0 z-50 bg-orange-50/90 backdrop-blur-md shadow-md">
@@ -74,6 +82,18 @@ export default function Navbar() {
                                     </Link>
                                 </li>
                             </>
+                        )}
+
+                        {user && (
+                            <li>
+                                <button
+                                    onClick={handleLogout}
+                                    className="px-3 py-2 rounded-md text-sm font-medium text-black cursor-pointer"
+                                    title={t('auth.logout')}
+                                >
+                                    <GiExitDoor size={18} />
+                                </button>
+                            </li>
                         )}
                     </ul>
 
@@ -134,6 +154,18 @@ export default function Navbar() {
                                     {t('auth.register')}
                                 </Link>
                             </>
+                        )}
+
+                        {user && (
+                            <li>
+                                <button
+                                    onClick={handleLogout}
+                                    className="px-3 py-2 rounded-md text-sm font-medium text-black"
+                                    title={t('auth.logout')}
+                                >
+                                    <GiExitDoor size={18} />
+                                </button>
+                            </li>
                         )}
                     </div>
                 </div>
