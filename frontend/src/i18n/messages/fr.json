@@ -1,4 +1,9 @@
 {
+    "appName": "Rules I Live By (Until I Don’t)",
+    "error": {
+        "loginFailed": "Échec de la connexion. Veuillez vérifier vos informations d'identification et réessayer.",
+        "registrationFailed": "Échec de l'inscription. Veuillez vérifier vos informations et réessayer."
+    },
     "home": {
         "title": "Les règles que je me fixe (jusqu’à ce que je les brise)",
         "subtitle": "Un espace calme pour observer l’écart entre ce que j’énonce et ce que je fais.",
@@ -47,6 +52,7 @@
         }
     },
     "nav": {
+        "dashboard": "Tableau de bord",
         "profile": "Soi",
         "rules": "Règles",
         "fractures": "Fractures",

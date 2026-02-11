@@ -1,4 +1,9 @@
 {
+    "appName": "Rules I Live By (Until I Don’t)",
+    "error": {
+        "loginFailed": "Failed to log in. Please verify your credentials and try again.",
+        "registrationFailed": "Failed to register. Please verify your information and try again."
+    },
     "home": {
         "title": "Rules I live by (until I don’t)",
         "subtitle": "A quiet place to observe the distance between what I intend and what I do.",
@@ -47,6 +52,7 @@
         }
     },
     "nav": {
+        "dashboard": "Dashboard",
         "profile": "Self",
         "rules": "Rules",
         "fractures": "Fractures",

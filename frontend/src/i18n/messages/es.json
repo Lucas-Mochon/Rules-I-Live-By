@@ -1,4 +1,9 @@
 {
+    "appName": "Rules I Live By (Until I Don’t)",
+    "error": {
+        "loginFailed": "Error de inicio de sesión. Por favor, verifica tus credenciales e inténtalo de nuevo.",
+        "registrationFailed": "Error de registro. Por favor, verifica tus datos e inténtalo de nuevo."
+    },
     "home": {
         "title": "Las reglas por las que vivo (hasta que no)",
         "subtitle": "Un espacio silencioso para observar la distancia entre la intención y el acto.",
@@ -47,6 +52,7 @@
         }
     },
     "nav": {
+        "dashboard": "Panel de Control",
         "profile": "Yo",
         "rules": "Reglas",
         "fractures": "Rupturas",

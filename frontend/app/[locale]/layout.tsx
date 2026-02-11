@@ -1,33 +1,36 @@
-import {notFound} from 'next/navigation';
-import {I18nProvider} from '@/src/i18n/I18nProvider';
-import {locales, Locale} from '@/src/i18n/config';
-import Navbar from '@/src/components/navbar';
+import { I18nProvider } from '@/src/i18n/I18nProvider';
+import { locales, Locale } from '@/src/i18n/config';
+import ClientRedirectWrapper from './clientRedirectWrapper';
 
 export default async function LocaleLayout({
-  children,
-  params,
+    children,
+    params,
 }: {
-  children: React.ReactNode;
-  params: Promise<{ locale: string }>;
+    children: React.ReactNode;
+    params: { locale: string } | Promise<{ locale: string }>;
 }) {
-  const {locale} = await params;
+    const resolvedParams = await params;
+    const { locale } = resolvedParams;
 
-  if (!locales.includes(locale as Locale)) {
-    notFound();
-  }
+    if (!locales.includes(locale as Locale)) {
+        return null;
+    }
 
-  const messages = (await import(
-    `@/src/i18n/messages/${locale}.json`
-  )).default;
+    const messages = (await import(`@/src/i18n/messages/${locale}.json`))
+        .default;
 
-  return (
-    <I18nProvider locale={locale as Locale} messages={messages}>
-        <Navbar />
-        {children}
-    </I18nProvider>
-  );
+    return (
+        <I18nProvider
+            locale={locale as Locale}
+            messages={messages}
+        >
+            <div className="min-h-screen bg-neutral-50">
+                <ClientRedirectWrapper>{children}</ClientRedirectWrapper>
+            </div>
+        </I18nProvider>
+    );
 }
 
 export function generateStaticParams() {
-  return locales.map(locale => ({locale}));
+    return locales.map((locale) => ({ locale }));
 }
