@@ -84,12 +84,9 @@ public class AuthService {
     }
 
     @Transactional
-    public String refresh(String refreshToken) {
-        if (!jwtUtil.isTokenValid(refreshToken)) {
-            throw new RuntimeException("Invalid refresh token");
-        }
+    public String refresh(String token) {
+        String userId = jwtUtil.validateTokenAndGetUserId(token);
 
-        String userId = jwtUtil.getUserIdFromToken(refreshToken);
         Optional<User> userOpt = userDao.findById(userId);
 
         if (userOpt.isEmpty()) {
@@ -98,25 +95,24 @@ public class AuthService {
 
         User user = userOpt.get();
 
-        if (!user.getRefreshToken().equals(refreshToken)) {
-            throw new RuntimeException("Refresh token mismatch");
+        String storedRefreshToken = user.getRefreshToken();
+
+        if (storedRefreshToken == null || !jwtUtil.isTokenValid(storedRefreshToken)) {
+            throw new RuntimeException("Invalid or expired refresh token");
         }
 
-        String newJwtToken = jwtUtil.generateJwtToken(user);
         String newRefreshToken = jwtUtil.generateRefreshToken(user);
         user.setRefreshToken(newRefreshToken);
         userDao.save(user);
 
-        return newJwtToken;
+        String jwtToken = jwtUtil.generateJwtToken(user);
+
+        return jwtToken;
     }
 
     @Transactional
-    public void logout(String refreshToken) {
-        if (!jwtUtil.isTokenValid(refreshToken)) {
-            throw new RuntimeException("Invalid refresh token");
-        }
-
-        String userId = jwtUtil.getUserIdFromToken(refreshToken);
+    public void logout(String token) {
+        String userId = jwtUtil.getUserIdFromToken(token);
         Optional<User> userOpt = userDao.findById(userId);
 
         if (userOpt.isEmpty()) {
@@ -124,10 +120,6 @@ public class AuthService {
         }
 
         User user = userOpt.get();
-
-        if (!user.getRefreshToken().equals(refreshToken)) {
-            throw new RuntimeException("Refresh token mismatch");
-        }
 
         user.setRefreshToken(null);
         userDao.save(user);

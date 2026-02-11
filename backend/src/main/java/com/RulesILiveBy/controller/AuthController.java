@@ -6,7 +6,6 @@ import com.RulesILiveBy.common.ApiResponse;
 import com.RulesILiveBy.dto.auth.CreateUserDto;
 import com.RulesILiveBy.dto.auth.LoginDto;
 import com.RulesILiveBy.dto.auth.LoginResponse;
-import com.RulesILiveBy.dto.auth.TokenRequest;
 import com.RulesILiveBy.service.AuthService;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,15 +41,15 @@ public class AuthController {
     }
 
     @PostMapping("/refresh")
-    public ResponseEntity<ApiResponse<String>> refresh(@RequestBody TokenRequest request) {
-        String refreshToken = request.getToken();
-
-        if (refreshToken == null || refreshToken.isEmpty()) {
+    public ResponseEntity<ApiResponse<String>> refresh(@RequestHeader("Authorization") String authHeader) {
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             return ResponseEntity.badRequest().body(ApiResponse.error("Missing token"));
         }
 
+        String token = authHeader.substring(7);
+
         try {
-            String newJwtToken = authService.refresh(refreshToken);
+            String newJwtToken = authService.refresh(token);
             return ResponseEntity.ok(ApiResponse.success(newJwtToken));
         } catch (RuntimeException e) {
             return ResponseEntity.status(401).body(ApiResponse.error(e.getMessage()));
@@ -58,15 +57,15 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<ApiResponse<String>> logout(@RequestBody TokenRequest request) {
-        String refreshToken = request.getToken();
-
-        if (refreshToken == null || refreshToken.isEmpty()) {
+    public ResponseEntity<ApiResponse<String>> logout(@RequestHeader("Authorization") String authHeader) {
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             return ResponseEntity.badRequest().body(ApiResponse.error("Missing token"));
         }
 
+        String token = authHeader.substring(7);
+
         try {
-            authService.logout(refreshToken);
+            authService.logout(token);
             return ResponseEntity.ok(ApiResponse.success("Successfully logged out"));
         } catch (RuntimeException e) {
             return ResponseEntity.status(401).body(ApiResponse.error(e.getMessage()));

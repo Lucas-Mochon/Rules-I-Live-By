@@ -77,4 +77,25 @@ public class JwtUtil {
             return false;
         }
     }
+
+    public String validateTokenAndGetUserId(String token) {
+        try {
+            Claims claims = Jwts.parser()
+                    .verifyWith(key)
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload();
+
+            return claims.getSubject();
+
+        } catch (UnsupportedJwtException e) {
+            throw new RuntimeException("Token non supporté", e);
+        } catch (MalformedJwtException e) {
+            throw new RuntimeException("Token malformé", e);
+        } catch (IllegalArgumentException e) {
+            throw new RuntimeException("Token vide ou invalide", e);
+        } catch (Exception e) {
+            throw new RuntimeException("Erreur lors de la validation du Token", e);
+        }
+    }
 }
