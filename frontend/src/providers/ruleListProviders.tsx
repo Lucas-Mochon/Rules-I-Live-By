@@ -1,7 +1,8 @@
 import React, { useState, useCallback, useMemo } from 'react';
-import RuleListContext, { ListRulesPayload } from '../context/ruleListContext';
+import RuleListContext from '../context/ruleListContext';
 import { RuleStatus } from '../types/enum/ruleStatus';
 import { UserStore } from '../store/userStore';
+import { ListRulesPayload } from '../types/interfaces/listRulesPayload';
 
 interface RuleListProviderProps {
     children: React.ReactNode;

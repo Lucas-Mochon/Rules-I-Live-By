@@ -9,14 +9,20 @@ interface BackgroundProps {
 export default function Background({ children, className }: BackgroundProps) {
     return (
         <main
-            className={clsx('min-h-screen', className)}
-            style={{
-                backgroundImage: "url('/background.jpg')",
-                backgroundBlendMode: 'overlay',
-                backgroundColor: 'rgba(255,255,255,0.5)',
-            }}
+            className={clsx(
+                'min-h-screen',
+                'mt-10',
+                'bg-cover bg-center bg-no-repeat bg-fixed',
+                'bg-[url("/background.jpg")]',
+                'bg-white/50 bg-blend-overlay',
+                'py-10 sm:py-12 md:py-14 lg:py-16',
+                'px-4 sm:px-6 md:px-8 lg:px-12',
+                'overflow-x-hidden',
+
+                className
+            )}
         >
-            {children}
+            <div className="max-w-7xl mx-auto">{children}</div>
         </main>
     );
 }

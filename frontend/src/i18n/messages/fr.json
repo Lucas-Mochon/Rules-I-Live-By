@@ -2,6 +2,7 @@
     "appName": "Rules I Live By (Until I Don't)",
     "loading": "Chargement ...",
     "error": {
+        "error": "Erreur interne",
         "loginFailed": "Échec de la connexion. Veuillez vérifier vos informations d'identification et réessayer.",
         "registrationFailed": "Échec de l'inscription. Veuillez vérifier vos informations et réessayer.",
         "createRuleFailed": "Échec de la création de la règle.",
@@ -14,7 +15,11 @@
         "invalidEmail": "L'adresse email n'est pas valide",
         "loadProfileFailed": "Impossible de charger le profil",
         "updateProfileFailed": "Impossible de mettre à jour le profil",
-        "logoutFailed": "Erreur lors de la déconnexion"
+        "logoutFailed": "Erreur lors de la déconnexion",
+        "ruleRequired": "Veuillez sélectionner une règle",
+        "emotionRequired": "L'émotion est requise",
+        "contextRequired": "Le contexte est requis",
+        "createRuleEventFailed": "Erreur lors de la création de l'événement"
     },
     "home": {
         "title": "Les règles que je me fixe (jusqu'à ce que je les brise)",
@@ -68,7 +73,7 @@
         "profile": "Soi",
         "rules": "Règles",
         "fractures": "Fractures",
-        "archive": "Archive"
+        "respect": "Respectée"
     },
     "auth": {
         "username": "Nom d'utilisateur",
@@ -131,6 +136,29 @@
         "validEmail": "Adresse email valide requise",
         "saveChanges": "Enregistrer les modifications",
         "updateSuccess": "Profil mis à jour avec succès ✓"
+    },
+    "ruleEvent": {
+        "create": "Créer un événement",
+        "edit": "Modifier",
+        "occurredOn": "Survenu le",
+        "emotion": "Émotion",
+        "context": "Contexte",
+        "note": "Note",
+        "noRuleEvents": "Aucun événement trouvé",
+        "createDescription": "Enregistrez un nouvel événement pour cette règle",
+        "save": "Enregistrer",
+        "rule": "Règle",
+        "selectRule": "Sélectionnez une règle",
+        "emotionPlaceholder": "Ex: Joie, Frustration, Fierté...",
+        "contextPlaceholder": "Décrivez la situation dans laquelle cet événement s'est produit",
+        "notePlaceholder": "Ajoutez des détails supplémentaires...",
+        "noRulesAvailable": "Aucune règle disponible. Créez d'abord une règle.",
+        "cancelQuestion": "Changer d'avis ?",
+        "type": {
+            "RESPECTED": "Respecté",
+            "BROKEN": "Violé",
+            "type": "Type d'évenement"
+        }
     },
     "common": {
         "goBack": "Retour",

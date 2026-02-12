@@ -26,6 +26,7 @@ export default function Navbar() {
     const commonItems = [
         { key: 'rules', path: '/rules' },
         { key: 'fractures', path: '/broken' },
+        { key: 'respect', path: '/respected' },
         { key: 'profile', path: '/profile' },
     ];
 

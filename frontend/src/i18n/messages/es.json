@@ -1,9 +1,10 @@
 {
-    "appName": "Reglas por las que vivo (hasta que no)",
+    "appName": "Reglas Por Las Que Vivo (Hasta Que No)",
     "loading": "Cargando...",
     "error": {
-        "loginFailed": "Error al iniciar sesión. Verifica tus credenciales e inténtalo nuevamente.",
-        "registrationFailed": "Error en el registro. Verifica tu información e inténtalo nuevamente.",
+        "error": "Error interno",
+        "loginFailed": "Error al iniciar sesión. Verifica tus credenciales e inténtalo de nuevo.",
+        "registrationFailed": "Error en el registro. Verifica tu información e inténtalo de nuevo.",
         "createRuleFailed": "Error al crear la regla.",
         "titleRequired": "El título es obligatorio.",
         "descriptionRequired": "La descripción es obligatoria.",
@@ -14,48 +15,52 @@
         "invalidEmail": "El correo electrónico no es válido.",
         "loadProfileFailed": "No se pudo cargar el perfil.",
         "updateProfileFailed": "No se pudo actualizar el perfil.",
-        "logoutFailed": "Error al cerrar sesión."
+        "logoutFailed": "Error al cerrar sesión.",
+        "ruleRequired": "Por favor selecciona una regla.",
+        "emotionRequired": "La emoción es obligatoria.",
+        "contextRequired": "El contexto es obligatorio.",
+        "createRuleEventFailed": "Error al crear el evento."
     },
     "home": {
-        "title": "Las reglas que me impongo (hasta que las rompo)",
-        "subtitle": "Un espacio tranquilo para observar la brecha entre lo que declaro y lo que hago.",
-        "hint": "No hay nada que hacer por ahora. Solo leer.",
+        "title": "Las Reglas Que Me Impongo (Hasta Que Las Rompo)",
+        "subtitle": "Un espacio tranquilo para observar la distancia entre lo que digo y lo que hago.",
+        "hint": "Por ahora no hay nada que hacer. Solo leer.",
         "cta": {
             "getStarted": "Comenzar",
             "learnMore": "Saber más",
-            "begin": "Inicia tu camino"
+            "begin": "Comienza tu camino"
         },
         "features": {
-            "title": "Por qué las reglas importan",
+            "title": "Por Qué Las Reglas Importan",
             "focus": {
-                "title": "Mantente enfocado",
+                "title": "Mantente Enfocado",
                 "description": "Define los principios que guían tus decisiones y te mantienen alineado con tus valores."
             },
             "consistency": {
-                "title": "Construye constancia",
+                "title": "Construye Consistencia",
                 "description": "Aplica tus reglas regularmente y desarrolla hábitos duraderos que den forma a tu vida."
             },
             "progress": {
-                "title": "Sigue tu progreso",
-                "description": "Supervisa tu cumplimiento de las reglas y celebra tus logros en el camino."
+                "title": "Sigue Tu Progreso",
+                "description": "Supervisa el cumplimiento de tus reglas y celebra tus logros en el camino."
             },
             "adapt": {
-                "title": "Reflexiona y adapta",
+                "title": "Reflexiona y Adáptate",
                 "description": "Evalúa regularmente tus reglas y ajústalas según lo que aprendas sobre ti mismo."
             }
         },
         "howItWorks": {
-            "title": "Cómo funciona",
+            "title": "Cómo Funciona",
             "step1": {
-                "title": "Crea tus reglas",
-                "description": "Escribe las reglas que representan la persona que quieres llegar a ser. Sé específico e intencional."
+                "title": "Crea Tus Reglas",
+                "description": "Escribe las reglas que representen la persona que quieres llegar a ser. Sé específico e intencional."
             },
             "step2": {
-                "title": "Define tus objetivos",
-                "description": "Establece hitos y registra eventos relacionados con tus reglas. Hazlos medibles."
+                "title": "Define Tus Objetivos",
+                "description": "Establece metas y registra eventos relacionados con tus reglas. Hazlos medibles."
             },
             "step3": {
-                "title": "Registra y haz seguimiento",
+                "title": "Registra y Haz Seguimiento",
                 "description": "Anota tu progreso y mantente responsable. Observa cómo tu compromiso se convierte en resultados concretos."
             }
         },
@@ -67,8 +72,8 @@
         "dashboard": "Panel",
         "profile": "Perfil",
         "rules": "Reglas",
-        "fractures": "Fracturas",
-        "archive": "Archivo"
+        "fractures": "Rupturas",
+        "respect": "Cumplida"
     },
     "auth": {
         "username": "Nombre de usuario",
@@ -77,8 +82,8 @@
         "login": "Iniciar sesión",
         "register": "Registrarse",
         "registration": "Crear cuenta",
-        "no_account": "¿No tienes una cuenta? ",
-        "have_account": "¿Ya tienes una cuenta? ",
+        "no_account": "¿No tienes cuenta? ",
+        "have_account": "¿Ya tienes cuenta? ",
         "logout": "Cerrar sesión"
     },
     "rule": {
@@ -86,7 +91,7 @@
         "title": "Título de la regla",
         "description": "Descripción de la regla",
         "save": "Guardar regla",
-        "titlePlaceholder": "Ej: Hacer ejercicio cada día",
+        "titlePlaceholder": "Ej.: Hacer ejercicio cada día",
         "descriptionPlaceholder": "Describe esta regla en detalle...",
         "createDescription": "Define una nueva regla que te guíe hacia la persona que quieres ser.",
         "cancelQuestion": "¿Cambiaste de opinión?",
@@ -98,10 +103,10 @@
         "status": {
             "label": "Estado",
             "all": "Todos los estados",
-            "ACTIVE": "Activo",
-            "ARCHIVED": "Archivado",
-            "active": "Activo",
-            "archived": "Archivado"
+            "ACTIVE": "Activa",
+            "ARCHIVED": "Archivada",
+            "active": "Activa",
+            "archived": "Archivada"
         },
         "fromDate": "Desde",
         "toDate": "Hasta",
@@ -116,15 +121,44 @@
         "of": "de"
     },
     "profile": {
-        "title": "Mi perfil",
-        "description": "Gestiona tu información personal",
-        "username": "Nombre de usuario",
-        "usernamePlaceholder": "Ingresa tu nombre de usuario",
-        "email": "Correo electrónico",
-        "emailPlaceholder": "Ingresa tu correo electrónico",
+        "title": "Mi Perfil",
         "edit": "Editar",
+        "email": "Correo electrónico",
+        "username": "Nombre de usuario",
+        "accountSection": "Cuenta",
+        "logout": "Cerrar sesión",
+        "loggingOut": "Cerrando sesión...",
+        "editTitle": "Editar mi perfil",
+        "editDescription": "Actualiza tu información personal",
+        "usernamePlaceholder": "Introduce tu nombre de usuario",
+        "emailPlaceholder": "Introduce tu correo electrónico",
+        "minChars": "Al menos 3 caracteres",
+        "validEmail": "Se requiere un correo electrónico válido",
         "saveChanges": "Guardar cambios",
-        "logout": "Cerrar sesión"
+        "updateSuccess": "Perfil actualizado con éxito ✓"
+    },
+    "ruleEvent": {
+        "create": "Crear evento",
+        "edit": "Editar",
+        "occurredOn": "Ocurrió el",
+        "emotion": "Emoción",
+        "context": "Contexto",
+        "note": "Nota",
+        "noRuleEvents": "No se encontraron eventos",
+        "createDescription": "Registra un nuevo evento para esta regla",
+        "save": "Guardar",
+        "rule": "Regla",
+        "selectRule": "Selecciona una regla",
+        "emotionPlaceholder": "Ej.: Alegría, Frustración, Orgullo...",
+        "contextPlaceholder": "Describe la situación en la que ocurrió este evento",
+        "notePlaceholder": "Añade detalles adicionales...",
+        "noRulesAvailable": "No hay reglas disponibles. Crea una primero.",
+        "cancelQuestion": "¿Cambiaste de opinión?",
+        "type": {
+            "RESPECTED": "Cumplida",
+            "BROKEN": "Incumplida",
+            "type": "Tipo de evento"
+        }
     },
     "common": {
         "goBack": "Volver",

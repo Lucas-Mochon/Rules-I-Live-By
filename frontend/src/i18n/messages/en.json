@@ -2,23 +2,28 @@
     "appName": "Rules I Live By (Until I Don't)",
     "loading": "Loading...",
     "error": {
+        "error": "Internal error",
         "loginFailed": "Login failed. Please check your credentials and try again.",
         "registrationFailed": "Registration failed. Please check your information and try again.",
         "createRuleFailed": "Failed to create rule.",
         "titleRequired": "Title is required.",
         "descriptionRequired": "Description is required.",
-        "titleTooShort": "Title must contain at least 3 characters.",
+        "titleTooShort": "Title must be at least 3 characters long.",
         "updateRuleFailed": "Failed to update rule.",
         "usernameRequired": "Username is required.",
         "emailRequired": "Email address is required.",
         "invalidEmail": "Email address is not valid.",
         "loadProfileFailed": "Failed to load profile.",
         "updateProfileFailed": "Failed to update profile.",
-        "logoutFailed": "Error while logging out."
+        "logoutFailed": "Error during logout.",
+        "ruleRequired": "Please select a rule.",
+        "emotionRequired": "Emotion is required.",
+        "contextRequired": "Context is required.",
+        "createRuleEventFailed": "Error creating event."
     },
     "home": {
         "title": "The Rules I Set for Myself (Until I Break Them)",
-        "subtitle": "A quiet space to observe the gap between what I declare and what I do.",
+        "subtitle": "A quiet space to observe the gap between what I say and what I do.",
         "hint": "There is nothing to do for now. Just read.",
         "cta": {
             "getStarted": "Get Started",
@@ -37,7 +42,7 @@
             },
             "progress": {
                 "title": "Track Your Progress",
-                "description": "Monitor your rule adherence and celebrate your victories along the way."
+                "description": "Monitor your adherence to your rules and celebrate your wins along the way."
             },
             "adapt": {
                 "title": "Reflect and Adapt",
@@ -68,25 +73,25 @@
         "profile": "Self",
         "rules": "Rules",
         "fractures": "Fractures",
-        "archive": "Archive"
+        "respect": "Respected"
     },
     "auth": {
         "username": "Username",
         "password": "Password",
         "email": "Email",
-        "login": "Login",
+        "login": "Log In",
         "register": "Register",
         "registration": "Sign Up",
         "no_account": "Don't have an account? ",
         "have_account": "Already have an account? ",
-        "logout": "Logout"
+        "logout": "Log Out"
     },
     "rule": {
         "create": "Create a new rule",
         "title": "Rule title",
         "description": "Rule description",
         "save": "Save rule",
-        "titlePlaceholder": "Ex: Exercise every day",
+        "titlePlaceholder": "E.g.: Exercise every day",
         "descriptionPlaceholder": "Describe this rule in detail...",
         "createDescription": "Define a new rule that guides you toward the person you want to become.",
         "cancelQuestion": "Changed your mind?",
@@ -117,14 +122,43 @@
     },
     "profile": {
         "title": "My Profile",
-        "description": "Manage your personal information",
-        "username": "Username",
-        "usernamePlaceholder": "Enter your username",
-        "email": "Email address",
-        "emailPlaceholder": "Enter your email address",
         "edit": "Edit",
+        "email": "Email address",
+        "username": "Username",
+        "accountSection": "Account",
+        "logout": "Log out",
+        "loggingOut": "Logging out...",
+        "editTitle": "Edit my profile",
+        "editDescription": "Update your personal information",
+        "usernamePlaceholder": "Enter your username",
+        "emailPlaceholder": "Enter your email address",
+        "minChars": "At least 3 characters",
+        "validEmail": "Valid email address required",
         "saveChanges": "Save changes",
-        "logout": "Log out"
+        "updateSuccess": "Profile updated successfully ✓"
+    },
+    "ruleEvent": {
+        "create": "Create event",
+        "edit": "Edit",
+        "occurredOn": "Occurred on",
+        "emotion": "Emotion",
+        "context": "Context",
+        "note": "Note",
+        "noRuleEvents": "No events found",
+        "createDescription": "Record a new event for this rule",
+        "save": "Save",
+        "rule": "Rule",
+        "selectRule": "Select a rule",
+        "emotionPlaceholder": "E.g.: Joy, Frustration, Pride...",
+        "contextPlaceholder": "Describe the situation in which this event occurred",
+        "notePlaceholder": "Add additional details...",
+        "noRulesAvailable": "No rules available. Create a rule first.",
+        "cancelQuestion": "Changed your mind?",
+        "type": {
+            "RESPECTED": "Respected",
+            "BROKEN": "Broken",
+            "type": "Event type"
+        }
     },
     "common": {
         "goBack": "Go back",

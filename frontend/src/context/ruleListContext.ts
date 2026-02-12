@@ -1,15 +1,6 @@
 import { createContext, useContext } from 'react';
 import { RuleStatus } from '../types/enum/ruleStatus';
-
-export interface ListRulesPayload {
-    userId: string;
-    page: number;
-    size: number;
-    offset: number;
-    status?: RuleStatus;
-    fromDate?: Date;
-    toDate?: Date;
-}
+import { ListRulesPayload } from '../types/interfaces/listRulesPayload';
 
 interface RuleListContextType {
     page: number;

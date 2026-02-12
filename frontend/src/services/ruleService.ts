@@ -1,6 +1,7 @@
 import { ListRules } from '../models/ListRules';
 import { Rule } from '../models/Rule';
 import { RuleStore } from '../store/rulesStore';
+import { RuleStatus } from '../types/enum/ruleStatus';
 import { CreateRule } from '../types/interfaces/createRule';
 import { ListRulesPayload } from '../types/interfaces/listRulesPayload';
 import { UpdateRule } from '../types/interfaces/updateRule';
@@ -45,5 +46,17 @@ export class RuleService {
     async archive(ruleId: string) {
         const rule: Rule = await this.api.archive(ruleId);
         await this.ruleStore.setOneOfRules(rule);
+    }
+
+    async listAll(userId: string): Promise<Rule[]> {
+        const payload: ListRulesPayload = {
+            userId: userId,
+            page: 1,
+            size: 100000,
+            offset: 0,
+            status: RuleStatus.ACTIVE,
+        };
+        const listRules: ListRules = await this.api.listRules(payload);
+        return listRules.rules;
     }
 }

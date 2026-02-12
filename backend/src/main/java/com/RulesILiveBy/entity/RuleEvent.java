@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "rule_events")
+@Document(collection = "ruleEvents")
 public class RuleEvent {
 
     @Id
@@ -23,5 +23,4 @@ public class RuleEvent {
     private String emotion;
     private String note;
     private LocalDateTime occurredAt;
-    private LocalDateTime createdAt;
 }
