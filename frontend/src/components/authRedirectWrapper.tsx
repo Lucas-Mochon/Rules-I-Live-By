@@ -23,40 +23,47 @@ export function AuthRedirectWrapper({
     const store = UserStore.getInstance();
     const { isLoading } = useAuthInit();
     const [shouldRender, setShouldRender] = useState(false);
+    const [redirectProcessed, setRedirectProcessed] = useState(false);
 
     useEffect(() => {
-        const handleRedirect = () => {
-            if (isLoading) return;
+        if (isLoading || redirectProcessed) return;
 
-            const user = store.getUser();
+        const handleRedirect = async () => {
             const currentPath = window.location.pathname;
             const currentLocale = extractLocale(currentPath);
             const currentRoute = extractRoute(currentPath);
+            const user = store.getUser();
 
             if (!locales.includes(currentLocale as Locale)) {
                 router.replace(`/${locale}${currentPath}`);
+                setRedirectProcessed(true);
                 return;
             }
 
             if (user) {
                 if (isPublicRoute(currentRoute)) {
                     router.replace(`/${currentLocale}/dashboard`);
+                    setRedirectProcessed(true);
                     return;
                 }
+
                 setShouldRender(true);
+                setRedirectProcessed(true);
                 return;
             }
 
             if (isProtectedRoute(currentRoute)) {
                 router.replace(`/${currentLocale}/user/login`);
+                setRedirectProcessed(true);
                 return;
             }
 
             setShouldRender(true);
+            setRedirectProcessed(true);
         };
 
         handleRedirect();
-    }, [isLoading, router, store, locale]);
+    }, [isLoading, router, store, locale, redirectProcessed]);
 
     if (isLoading || !shouldRender) {
         return (

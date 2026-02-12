@@ -27,7 +27,6 @@ export default function Navbar() {
         { key: 'profile', path: '/profile' },
         { key: 'rules', path: '/rules' },
         { key: 'fractures', path: '/broken' },
-        { key: 'archive', path: '/archive' },
     ];
 
     const items = user

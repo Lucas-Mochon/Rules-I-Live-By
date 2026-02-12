@@ -1,23 +1,29 @@
 export const PUBLIC_ROUTES = ['user/login', 'user/register'];
 
 export const PROTECTED_ROUTES = [
-    '/dashboard',
-    '/profile',
-    '/rules',
-    '/rules/ceate',
-    `/rules/{id}`,
-    '/archive',
-    '/broken',
+    'dashboard',
+    'profile',
+    'rules',
+    'rules/create',
+    'rules/[id]',
+    'rules/[id]/edit',
+    'broken',
 ];
 
-export const AUTH_ROUTES = [...PUBLIC_ROUTES, ...PROTECTED_ROUTES];
-
 export function isPublicRoute(pathname: string): boolean {
-    return PUBLIC_ROUTES.some((route) => pathname.includes(route));
+    const normalized = pathname.startsWith('/') ? pathname.slice(1) : pathname;
+    return PUBLIC_ROUTES.some(
+        (route) => normalized === route || normalized.startsWith(route + '/')
+    );
 }
 
 export function isProtectedRoute(pathname: string): boolean {
-    return PROTECTED_ROUTES.some((route) => pathname.includes(route));
+    const normalized = pathname.startsWith('/') ? pathname.slice(1) : pathname;
+    return PROTECTED_ROUTES.some((route) => {
+        const routePattern = route.replace(/\[.*?\]/g, '[^/]+');
+        const regex = new RegExp(`^${routePattern}(/|$)`);
+        return regex.test(normalized);
+    });
 }
 
 export function extractLocale(pathname: string): string {
