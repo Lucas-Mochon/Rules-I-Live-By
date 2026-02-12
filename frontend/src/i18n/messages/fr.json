@@ -1,12 +1,18 @@
 {
-    "appName": "Rules I Live By (Until I Don’t)",
+    "appName": "Rules I Live By (Until I Don't)",
+    "loading": "Chargement ...",
     "error": {
         "loginFailed": "Échec de la connexion. Veuillez vérifier vos informations d'identification et réessayer.",
-        "registrationFailed": "Échec de l'inscription. Veuillez vérifier vos informations et réessayer."
+        "registrationFailed": "Échec de l'inscription. Veuillez vérifier vos informations et réessayer.",
+        "createRuleFailed": "Échec de la création de la règle.",
+        "titleRequired": "Le titre est requis.",
+        "descriptionRequired": "La description est requise.",
+        "titleTooShort": "Le titre doit contenir au moins 3 caractères.",
+        "updateRuleFailed": "La mise à jour de la règle a échoué"
     },
     "home": {
-        "title": "Les règles que je me fixe (jusqu’à ce que je les brise)",
-        "subtitle": "Un espace calme pour observer l’écart entre ce que j’énonce et ce que je fais.",
+        "title": "Les règles que je me fixe (jusqu'à ce que je les brise)",
+        "subtitle": "Un espace calme pour observer l'écart entre ce que j'énonce et ce que je fais.",
         "hint": "Il n'y a rien à faire pour l'instant. Juste lire.",
         "cta": {
             "getStarted": "Commencer",
@@ -64,9 +70,46 @@
         "email": "Email",
         "login": "Connexion",
         "register": "Inscription",
-        "registration": "S’inscrire",
+        "registration": "S'inscrire",
         "no_account": "Vous n'avez pas de compte ? ",
         "have_account": "Vous avez déjà un compte ? ",
         "logout": "Déconnexion"
+    },
+    "rule": {
+        "create": "Créer une nouvelle règle",
+        "title": "Titre de la règle",
+        "description": "Description de la règle",
+        "save": "Enregistrer la règle",
+        "titlePlaceholder": "Ex: Faire de l'exercice chaque jour",
+        "descriptionPlaceholder": "Décrivez cette règle en détail...",
+        "createDescription": "Définissez une nouvelle règle qui vous guide vers la personne que vous voulez devenir.",
+        "cancelQuestion": "Changer d'avis ?",
+        "edit": "Modifier",
+        "editRule": "Modifier la règle",
+        "archive": "Archiver",
+        "createdOn": "Créée le",
+        "filters": "Filtres",
+        "status": {
+            "label": "Statut",
+            "all": "Tous les statuts",
+            "ACTIVE": "Actif",
+            "ARCHIVED": "Archivé",
+            "active": "Actif",
+            "archived": "Archivé"
+        },
+        "fromDate": "Du",
+        "toDate": "Au",
+        "resetFilters": "Réinitialiser",
+        "itemsPerPage": "Éléments par page",
+        "noRules": "Aucune règle trouvée"
+    },
+    "pagination": {
+        "previous": "Précédent",
+        "next": "Suivant",
+        "page": "Page",
+        "of": "sur"
+    },
+    "common": {
+        "goBack": "Retour"
     }
 }

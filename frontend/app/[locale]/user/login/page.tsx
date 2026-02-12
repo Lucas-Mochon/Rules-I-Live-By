@@ -91,7 +91,7 @@ export default function LoginPage() {
               transition duration-200 shadow-md hover:shadow-lg
               ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
                     >
-                        {loading ? 'Loading...' : t('auth.login')}
+                        {loading ? t('loading') : t('auth.login')}
                     </button>
 
                     <p className="text-xs text-center text-neutral-500">

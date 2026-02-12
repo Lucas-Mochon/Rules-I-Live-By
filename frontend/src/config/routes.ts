@@ -4,6 +4,8 @@ export const PROTECTED_ROUTES = [
     '/dashboard',
     '/profile',
     '/rules',
+    '/rules/ceate',
+    `/rules/{id}`,
     '/archive',
     '/broken',
 ];

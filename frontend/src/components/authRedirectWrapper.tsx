@@ -48,7 +48,7 @@ export function AuthRedirectWrapper({
             }
 
             if (isProtectedRoute(currentRoute)) {
-                router.replace(`/${currentLocale}/login`);
+                router.replace(`/${currentLocale}/user/login`);
                 return;
             }
 

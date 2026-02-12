@@ -1,9 +1,12 @@
-import Background from '@/src/components/background';
+'use client';
+
+import { RuleListProvider } from '@/src/providers/ruleListProviders';
+import RulesPageContent from './rulePageContent';
 
 export default function RulesPage() {
     return (
-        <Background>
-            <div>test</div>
-        </Background>
+        <RuleListProvider defaultSize={10}>
+            <RulesPageContent />
+        </RuleListProvider>
     );
 }

@@ -17,7 +17,7 @@ export class UserService {
         return UserService.instance;
     }
 
-    async fetchMe() {
+    async fetchMe(): Promise<User> {
         try {
             const user = await this.api.getMe();
             this.userStore.setUser(user);

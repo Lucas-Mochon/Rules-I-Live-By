@@ -105,7 +105,7 @@ export default function RegisterPage() {
               transition duration-200 shadow-md hover:shadow-lg
               ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
                     >
-                        {loading ? 'Loading...' : t('auth.register')}
+                        {loading ? t('loading') : t('auth.register')}
                     </button>
 
                     <p className="text-xs text-center text-neutral-500">
