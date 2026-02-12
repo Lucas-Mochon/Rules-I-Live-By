@@ -1,7 +1,7 @@
 import { UserStore } from '@/src/store/userStore';
 import { UserApiService } from './api/userApiService';
 import { User } from '../models/User';
-
+import { UpdateUser } from '../types/interfaces/updateUser';
 export class UserService {
     private static instance: UserService;
 
@@ -24,6 +24,16 @@ export class UserService {
             return user;
         } catch (err) {
             this.userStore.removeUser();
+            throw err;
+        }
+    }
+
+    async update(data: UpdateUser): Promise<User> {
+        try {
+            const user = await this.api.update(data);
+            this.userStore.setUser(user);
+            return user;
+        } catch (err) {
             throw err;
         }
     }

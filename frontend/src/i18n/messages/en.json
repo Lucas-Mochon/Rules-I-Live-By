@@ -4,16 +4,22 @@
     "error": {
         "loginFailed": "Login failed. Please check your credentials and try again.",
         "registrationFailed": "Registration failed. Please check your information and try again.",
-        "createRuleFailed": "Failed to create the rule.",
+        "createRuleFailed": "Failed to create rule.",
         "titleRequired": "Title is required.",
         "descriptionRequired": "Description is required.",
-        "titleTooShort": "Title must be at least 3 characters long.",
-        "updateRuleFailed": "The update of the rule failed"
+        "titleTooShort": "Title must contain at least 3 characters.",
+        "updateRuleFailed": "Failed to update rule.",
+        "usernameRequired": "Username is required.",
+        "emailRequired": "Email address is required.",
+        "invalidEmail": "Email address is not valid.",
+        "loadProfileFailed": "Failed to load profile.",
+        "updateProfileFailed": "Failed to update profile.",
+        "logoutFailed": "Error while logging out."
     },
     "home": {
-        "title": "The rules I live by (until I don't)",
-        "subtitle": "A quiet space to observe the gap between what I say and what I do.",
-        "hint": "Nothing to do for now. Just read.",
+        "title": "The Rules I Set for Myself (Until I Break Them)",
+        "subtitle": "A quiet space to observe the gap between what I declare and what I do.",
+        "hint": "There is nothing to do for now. Just read.",
         "cta": {
             "getStarted": "Get Started",
             "learnMore": "Learn More",
@@ -31,7 +37,7 @@
             },
             "progress": {
                 "title": "Track Your Progress",
-                "description": "Monitor your adherence to your rules and celebrate your wins along the way."
+                "description": "Monitor your rule adherence and celebrate your victories along the way."
             },
             "adapt": {
                 "title": "Reflect and Adapt",
@@ -42,15 +48,15 @@
             "title": "How It Works",
             "step1": {
                 "title": "Create Your Rules",
-                "description": "Write down the rules that represent the person you want to become. Be precise and intentional."
+                "description": "Write down the rules that represent the person you want to become. Be specific and intentional."
             },
             "step2": {
                 "title": "Set Your Goals",
                 "description": "Establish milestones and track events related to your rules. Make them measurable."
             },
             "step3": {
-                "title": "Track and Trace",
-                "description": "Record your progress and stay accountable. See your commitment transform into concrete results."
+                "title": "Track and Record",
+                "description": "Log your progress and stay accountable. Watch your commitment turn into tangible results."
             }
         },
         "footer": {
@@ -59,7 +65,7 @@
     },
     "nav": {
         "dashboard": "Dashboard",
-        "profile": "Profile",
+        "profile": "Self",
         "rules": "Rules",
         "fractures": "Fractures",
         "archive": "Archive"
@@ -80,12 +86,12 @@
         "title": "Rule title",
         "description": "Rule description",
         "save": "Save rule",
-        "titlePlaceholder": "E.g.: Exercise every day",
+        "titlePlaceholder": "Ex: Exercise every day",
         "descriptionPlaceholder": "Describe this rule in detail...",
         "createDescription": "Define a new rule that guides you toward the person you want to become.",
         "cancelQuestion": "Changed your mind?",
         "edit": "Edit",
-        "editRule": "Edit the rule",
+        "editRule": "Edit rule",
         "archive": "Archive",
         "createdOn": "Created on",
         "filters": "Filters",
@@ -99,11 +105,30 @@
         },
         "fromDate": "From",
         "toDate": "To",
-        "resetFilters": "Reset filters",
+        "resetFilters": "Reset",
         "itemsPerPage": "Items per page",
         "noRules": "No rules found"
     },
+    "pagination": {
+        "previous": "Previous",
+        "next": "Next",
+        "page": "Page",
+        "of": "of"
+    },
+    "profile": {
+        "title": "My Profile",
+        "description": "Manage your personal information",
+        "username": "Username",
+        "usernamePlaceholder": "Enter your username",
+        "email": "Email address",
+        "emailPlaceholder": "Enter your email address",
+        "edit": "Edit",
+        "saveChanges": "Save changes",
+        "logout": "Log out"
+    },
     "common": {
-        "goBack": "Go Back"
+        "goBack": "Go back",
+        "saving": "Saving...",
+        "cancel": "Cancel"
     }
 }

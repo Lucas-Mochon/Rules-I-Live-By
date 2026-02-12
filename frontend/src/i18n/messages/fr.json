@@ -8,7 +8,13 @@
         "titleRequired": "Le titre est requis.",
         "descriptionRequired": "La description est requise.",
         "titleTooShort": "Le titre doit contenir au moins 3 caractères.",
-        "updateRuleFailed": "La mise à jour de la règle a échoué"
+        "updateRuleFailed": "La mise à jour de la règle a échoué",
+        "usernameRequired": "Le nom d'utilisateur est requis",
+        "emailRequired": "L'adresse email est requise",
+        "invalidEmail": "L'adresse email n'est pas valide",
+        "loadProfileFailed": "Impossible de charger le profil",
+        "updateProfileFailed": "Impossible de mettre à jour le profil",
+        "logoutFailed": "Erreur lors de la déconnexion"
     },
     "home": {
         "title": "Les règles que je me fixe (jusqu'à ce que je les brise)",
@@ -109,7 +115,26 @@
         "page": "Page",
         "of": "sur"
     },
+    "profile": {
+        "title": "Mon Profil",
+        "edit": "Modifier",
+        "email": "Adresse email",
+        "username": "Nom d'utilisateur",
+        "accountSection": "Compte",
+        "logout": "Se déconnecter",
+        "loggingOut": "Déconnexion...",
+        "editTitle": "Modifier mon profil",
+        "editDescription": "Mettez à jour vos informations personnelles",
+        "usernamePlaceholder": "Entrez votre nom d'utilisateur",
+        "emailPlaceholder": "Entrez votre adresse email",
+        "minChars": "Au moins 3 caractères",
+        "validEmail": "Adresse email valide requise",
+        "saveChanges": "Enregistrer les modifications",
+        "updateSuccess": "Profil mis à jour avec succès ✓"
+    },
     "common": {
-        "goBack": "Retour"
+        "goBack": "Retour",
+        "saving": "Enregistrement...",
+        "cancel": "Annuler"
     }
 }

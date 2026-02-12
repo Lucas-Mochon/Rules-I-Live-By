@@ -1,6 +1,7 @@
 package com.RulesILiveBy.controller;
 
 import com.RulesILiveBy.common.ApiResponse;
+import com.RulesILiveBy.dto.user.UpdateRequestDto;
 import com.RulesILiveBy.dto.user.UserDto;
 import com.RulesILiveBy.service.UserService;
 
@@ -37,6 +38,16 @@ public class UserController {
             return ResponseEntity.ok(ApiResponse.success("Successfully retrieved user", user));
         } catch (RuntimeException e) {
             return ResponseEntity.status(401).body(ApiResponse.error(e.getMessage()));
+        }
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> update(@PathVariable String id, @RequestBody UpdateRequestDto request) {
+        try {
+            UserDto reponse = userService.update(id, request);
+            return ResponseEntity.ok(ApiResponse.success(reponse));
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage()));
         }
     }
 }

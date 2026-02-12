@@ -24,9 +24,9 @@ export default function Navbar() {
     }, [userService]);
 
     const commonItems = [
-        { key: 'profile', path: '/profile' },
         { key: 'rules', path: '/rules' },
         { key: 'fractures', path: '/broken' },
+        { key: 'profile', path: '/profile' },
     ];
 
     const items = user

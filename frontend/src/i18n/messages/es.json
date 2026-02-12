@@ -1,64 +1,70 @@
 {
-    "appName": "Rules I Live By (Until I Don't)",
+    "appName": "Reglas por las que vivo (hasta que no)",
     "loading": "Cargando...",
     "error": {
-        "loginFailed": "Error en la conexión. Por favor, verifica tus credenciales e intenta de nuevo.",
-        "registrationFailed": "Error en el registro. Por favor, verifica tu información e intenta de nuevo.",
+        "loginFailed": "Error al iniciar sesión. Verifica tus credenciales e inténtalo nuevamente.",
+        "registrationFailed": "Error en el registro. Verifica tu información e inténtalo nuevamente.",
         "createRuleFailed": "Error al crear la regla.",
-        "titleRequired": "El título es requerido.",
-        "descriptionRequired": "La descripción es requerida.",
+        "titleRequired": "El título es obligatorio.",
+        "descriptionRequired": "La descripción es obligatoria.",
         "titleTooShort": "El título debe tener al menos 3 caracteres.",
-        "updateRuleFailed": "La actualización de la regla ha fallado"
+        "updateRuleFailed": "Error al actualizar la regla.",
+        "usernameRequired": "El nombre de usuario es obligatorio.",
+        "emailRequired": "El correo electrónico es obligatorio.",
+        "invalidEmail": "El correo electrónico no es válido.",
+        "loadProfileFailed": "No se pudo cargar el perfil.",
+        "updateProfileFailed": "No se pudo actualizar el perfil.",
+        "logoutFailed": "Error al cerrar sesión."
     },
     "home": {
-        "title": "Las reglas por las que vivo (hasta que no lo hago)",
-        "subtitle": "Un espacio tranquilo para observar la brecha entre lo que digo y lo que hago.",
-        "hint": "Nada que hacer por ahora. Solo lee.",
+        "title": "Las reglas que me impongo (hasta que las rompo)",
+        "subtitle": "Un espacio tranquilo para observar la brecha entre lo que declaro y lo que hago.",
+        "hint": "No hay nada que hacer por ahora. Solo leer.",
         "cta": {
             "getStarted": "Comenzar",
-            "learnMore": "Saber Más",
-            "begin": "Comienza Tu Viaje"
+            "learnMore": "Saber más",
+            "begin": "Inicia tu camino"
         },
         "features": {
-            "title": "Por Qué Las Reglas Importan",
+            "title": "Por qué las reglas importan",
             "focus": {
-                "title": "Mantente Enfocado",
+                "title": "Mantente enfocado",
                 "description": "Define los principios que guían tus decisiones y te mantienen alineado con tus valores."
             },
             "consistency": {
-                "title": "Construye Consistencia",
-                "description": "Aplica tus reglas regularmente y desarrolla hábitos duraderos que formen tu vida."
+                "title": "Construye constancia",
+                "description": "Aplica tus reglas regularmente y desarrolla hábitos duraderos que den forma a tu vida."
             },
             "progress": {
-                "title": "Sigue Tu Progreso",
-                "description": "Monitorea tu cumplimiento de las reglas y celebra tus victorias en el camino."
+                "title": "Sigue tu progreso",
+                "description": "Supervisa tu cumplimiento de las reglas y celebra tus logros en el camino."
             },
             "adapt": {
-                "title": "Reflexiona y Adapta",
-                "description": "Evalúa regularmente tus reglas y refínalas según lo que aprendas sobre ti mismo."
+                "title": "Reflexiona y adapta",
+                "description": "Evalúa regularmente tus reglas y ajústalas según lo que aprendas sobre ti mismo."
             }
         },
         "howItWorks": {
-            "title": "Cómo Funciona",
+            "title": "Cómo funciona",
             "step1": {
-                "title": "Crea Tus Reglas",
-                "description": "Escribe las reglas que representan la persona que quieres ser. Sé preciso e intencional."
+                "title": "Crea tus reglas",
+                "description": "Escribe las reglas que representan la persona que quieres llegar a ser. Sé específico e intencional."
             },
             "step2": {
-                "title": "Establece Tus Objetivos",
-                "description": "Fija hitos y sigue los eventos relacionados con tus reglas. Hazlos medibles."
+                "title": "Define tus objetivos",
+                "description": "Establece hitos y registra eventos relacionados con tus reglas. Hazlos medibles."
             },
             "step3": {
-                "title": "Rastrea y Traza",
-                "description": "Registra tu progreso y mantente responsable. Ve tu compromiso transformarse en resultados concretos."
+                "title": "Registra y haz seguimiento",
+                "description": "Anota tu progreso y mantente responsable. Observa cómo tu compromiso se convierte en resultados concretos."
             }
         },
         "footer": {
-            "title": "¿Listo para Comenzar?"
+            "title": "¿Listo para comenzar?"
         }
     },
     "nav": {
-        "dashboard": "Panel de Control",
+        "dashboard": "Panel",
         "profile": "Perfil",
         "rules": "Reglas",
         "fractures": "Fracturas",
@@ -68,42 +74,61 @@
         "username": "Nombre de usuario",
         "password": "Contraseña",
         "email": "Correo electrónico",
-        "login": "Iniciar Sesión",
+        "login": "Iniciar sesión",
         "register": "Registrarse",
-        "registration": "Crear Cuenta",
-        "no_account": "¿No tienes cuenta? ",
-        "have_account": "¿Ya tienes cuenta? ",
-        "logout": "Cerrar Sesión"
+        "registration": "Crear cuenta",
+        "no_account": "¿No tienes una cuenta? ",
+        "have_account": "¿Ya tienes una cuenta? ",
+        "logout": "Cerrar sesión"
     },
     "rule": {
         "create": "Crear una nueva regla",
         "title": "Título de la regla",
         "description": "Descripción de la regla",
         "save": "Guardar regla",
-        "titlePlaceholder": "Ej.: Hacer ejercicio todos los días",
+        "titlePlaceholder": "Ej: Hacer ejercicio cada día",
         "descriptionPlaceholder": "Describe esta regla en detalle...",
-        "createDescription": "Define una nueva regla que te guíe hacia la persona que quieres llegar a ser.",
-        "cancelQuestion": "¿Has cambiado de opinión?",
+        "createDescription": "Define una nueva regla que te guíe hacia la persona que quieres ser.",
+        "cancelQuestion": "¿Cambiaste de opinión?",
         "edit": "Editar",
-        "editRule": "Editar el regla",
+        "editRule": "Editar regla",
         "archive": "Archivar",
         "createdOn": "Creada el",
         "filters": "Filtros",
         "status": {
             "label": "Estado",
             "all": "Todos los estados",
-            "ACTIVE": "Activa",
-            "ARCHIVED": "Archivada",
-            "active": "Activa",
-            "archived": "Archivada"
+            "ACTIVE": "Activo",
+            "ARCHIVED": "Archivado",
+            "active": "Activo",
+            "archived": "Archivado"
         },
         "fromDate": "Desde",
         "toDate": "Hasta",
-        "resetFilters": "Restablecer filtros",
+        "resetFilters": "Restablecer",
         "itemsPerPage": "Elementos por página",
         "noRules": "No se encontraron reglas"
     },
+    "pagination": {
+        "previous": "Anterior",
+        "next": "Siguiente",
+        "page": "Página",
+        "of": "de"
+    },
+    "profile": {
+        "title": "Mi perfil",
+        "description": "Gestiona tu información personal",
+        "username": "Nombre de usuario",
+        "usernamePlaceholder": "Ingresa tu nombre de usuario",
+        "email": "Correo electrónico",
+        "emailPlaceholder": "Ingresa tu correo electrónico",
+        "edit": "Editar",
+        "saveChanges": "Guardar cambios",
+        "logout": "Cerrar sesión"
+    },
     "common": {
-        "goBack": "Volver"
+        "goBack": "Volver",
+        "saving": "Guardando...",
+        "cancel": "Cancelar"
     }
 }
