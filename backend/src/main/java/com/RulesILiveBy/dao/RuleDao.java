@@ -35,7 +35,7 @@ public class RuleDao {
             page = page - 1;
         }
 
-        int startIndex = (page * size) + offset;
+        int startIndex = (page * size);
         int endIndex = Math.min(startIndex + size, rules.size());
 
         if (startIndex > rules.size()) {
