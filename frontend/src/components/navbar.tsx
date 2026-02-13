@@ -39,6 +39,7 @@ export default function Navbar() {
 
     const handleLogout = () => {
         authService.logout();
+        router.push(`/${locale}/user/login`);
         setMobileOpen(false);
     };
 

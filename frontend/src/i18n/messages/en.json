@@ -23,7 +23,8 @@
         "createRuleEventFailed": "Error creating event.",
         "dashboardLoadFailed": "Error while loading the dashboard",
         "partialDataLoad": "Some data could not be loaded",
-        "noDashboardData": "No data available. Please create rules and events first."
+        "noDashboardData": "No data available. Please create rules and events first.",
+        "passwordNotStrong": "Password must be at least 12 characters long and include uppercase, lowercase, numbers, and special characters."
     },
     "home": {
         "title": "The Rules I Set for Myself (Until I Break Them)",
@@ -90,7 +91,12 @@
         "registration": "Sign Up",
         "no_account": "Don't have an account? ",
         "have_account": "Already have an account? ",
-        "logout": "Log Out"
+        "logout": "Log Out",
+        "minLength": "At least 12 characters",
+        "hasUpperCase": "Includes an uppercase letter",
+        "hasLowerCase": "Includes a lowercase letter",
+        "hasNumber": "Includes a number",
+        "hasSpecialChar": "Includes a special character"
     },
     "dashboard": {
         "title": "Dashboard",

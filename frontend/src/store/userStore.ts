@@ -35,7 +35,7 @@ export class UserStore {
         this.notifyObservers();
     }
 
-    removeUser(): void {
+    async removeUser(): Promise<void> {
         this.user = null;
         this.notifyObservers();
     }

@@ -77,10 +77,10 @@ public class RuleDao {
         List<Rule> userRules = ruleRepository.findByUserId(userId);
 
         if (userRules.isEmpty()) {
-            throw new RuntimeException("Aucune règle trouvée pour cet utilisateur");
+            return new RuleResponse();
         }
 
-        Rule mostBrokenRule = userRules.stream()
+        Optional<Rule> mostBrokenRule = userRules.stream()
                 .max((rule1, rule2) -> {
                     long brokenCount1 = ruleEventRepository
                             .findByRuleIdAndType(rule1.getId(), EventTypeEnum.BROKEN)
@@ -89,20 +89,19 @@ public class RuleDao {
                             .findByRuleIdAndType(rule2.getId(), EventTypeEnum.BROKEN)
                             .size();
                     return Long.compare(brokenCount1, brokenCount2);
-                })
-                .orElseThrow(() -> new RuntimeException("Impossible de déterminer la règle la plus brisée"));
+                });
 
-        return mapToRuleResponse(mostBrokenRule);
+        return mostBrokenRule.map(this::mapToRuleResponse).orElseGet(RuleResponse::new);
     }
 
     public RuleResponse mostRespected(String userId) {
         List<Rule> userRules = ruleRepository.findByUserId(userId);
 
         if (userRules.isEmpty()) {
-            throw new RuntimeException("Aucune règle trouvée pour cet utilisateur");
+            return new RuleResponse();
         }
 
-        Rule mostRespectedRule = userRules.stream()
+        Optional<Rule> mostRespectedRule = userRules.stream()
                 .max((rule1, rule2) -> {
                     long respectedCount1 = ruleEventRepository
                             .findByRuleIdAndType(rule1.getId(), EventTypeEnum.RESPECTED)
@@ -111,17 +110,19 @@ public class RuleDao {
                             .findByRuleIdAndType(rule2.getId(), EventTypeEnum.RESPECTED)
                             .size();
                     return Long.compare(respectedCount1, respectedCount2);
-                })
-                .orElseThrow(() -> new RuntimeException("Impossible de déterminer la règle la plus respectée"));
+                });
 
-        return mapToRuleResponse(mostRespectedRule);
+        return mostRespectedRule.map(this::mapToRuleResponse).orElseGet(RuleResponse::new);
     }
 
     public StatsRespectedDto statsRespected(String userId) {
         List<RuleEvent> allEvents = ruleEventRepository.findByUserId(userId);
 
+        StatsRespectedDto response = new StatsRespectedDto();
+
         if (allEvents.isEmpty()) {
-            throw new RuntimeException("Aucun événement trouvé pour cet utilisateur");
+            response.setTaux(BigDecimal.ZERO);
+            return response;
         }
 
         long respectedCount = allEvents.stream()
@@ -132,9 +133,7 @@ public class RuleDao {
                 .divide(BigDecimal.valueOf(allEvents.size()), 2, RoundingMode.HALF_UP)
                 .multiply(BigDecimal.valueOf(100));
 
-        StatsRespectedDto response = new StatsRespectedDto();
         response.setTaux(taux);
-
         return response;
     }
 

@@ -23,7 +23,8 @@
         "createRuleEventFailed": "Erreur lors de la création de l'événement",
         "dashboardLoadFailed": "Erreur lors du chargement du tableau de bord",
         "partialDataLoad": "Certaines données n'ont pas pu être chargées",
-        "noDashboardData": "Aucune donnée disponible. Créez d'abord des règles et des événements."
+        "noDashboardData": "Aucune donnée disponible. Créez d'abord des règles et des événements.",
+        "passwordNotStrong": "Le mot de passe doit comporter au moins 12 caractères, inclure des majuscules, des minuscules, des chiffres et des caractères spéciaux."
     },
     "home": {
         "title": "Les règles que je me fixe (jusqu'à ce que je les brise)",
@@ -90,7 +91,12 @@
         "registration": "S'inscrire",
         "no_account": "Vous n'avez pas de compte ? ",
         "have_account": "Vous avez déjà un compte ? ",
-        "logout": "Déconnexion"
+        "logout": "Déconnexion",
+        "minLength": "Au moins 12 caractères",
+        "hasUpperCase": "Inclut une majuscule",
+        "hasLowerCase": "Inclut une minuscule",
+        "hasNumber": "Inclut un chiffre",
+        "hasSpecialChar": "Inclut un caractère spécial"
     },
     "dashboard": {
         "title": "Tableau de bord",

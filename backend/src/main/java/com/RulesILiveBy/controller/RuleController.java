@@ -34,8 +34,8 @@ public class RuleController {
     @GetMapping("/{id}")
     public ResponseEntity<Object> getOne(@PathVariable String id) {
         try {
-            RuleResponse reponse = ruleService.getOne(id);
-            return ResponseEntity.ok(ApiResponse.success(reponse));
+            RuleResponse response = ruleService.getOne(id);
+            return ResponseEntity.ok(ApiResponse.success(response));
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage()));
         }
@@ -62,7 +62,7 @@ public class RuleController {
     }
 
     @GetMapping("/stats/respected/{userId}")
-    public ResponseEntity<Object> getMethodName(@PathVariable String userId) {
+    public ResponseEntity<Object> statsRespected(@PathVariable String userId) {
         try {
             StatsRespectedDto response = ruleService.statsRespected(userId);
             return ResponseEntity.ok(ApiResponse.success(response));
@@ -74,8 +74,8 @@ public class RuleController {
     @PostMapping("/")
     public ResponseEntity<Object> create(@RequestBody CreateRuleRequestDto request) {
         try {
-            RuleResponse reponse = ruleService.create(request);
-            return ResponseEntity.ok(ApiResponse.success(reponse));
+            RuleResponse response = ruleService.create(request);
+            return ResponseEntity.ok(ApiResponse.success(response));
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage()));
         }
@@ -84,8 +84,8 @@ public class RuleController {
     @PutMapping("/{id}")
     public ResponseEntity<Object> update(@PathVariable String id, @RequestBody EditRuleRequestDto request) {
         try {
-            RuleResponse reponse = ruleService.update(id, request);
-            return ResponseEntity.ok(ApiResponse.success(reponse));
+            RuleResponse response = ruleService.update(id, request);
+            return ResponseEntity.ok(ApiResponse.success(response));
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage()));
         }
@@ -94,8 +94,8 @@ public class RuleController {
     @PutMapping("/{id}/archive")
     public ResponseEntity<Object> archive(@PathVariable String id) {
         try {
-            RuleResponse reponse = ruleService.archive(id);
-            return ResponseEntity.ok(ApiResponse.success(reponse));
+            RuleResponse response = ruleService.archive(id);
+            return ResponseEntity.ok(ApiResponse.success(response));
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage()));
         }

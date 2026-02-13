@@ -10,11 +10,13 @@ import { User } from '@/src/models/User';
 import { MdEdit, MdLogout, MdEmail, MdPerson } from 'react-icons/md';
 import Loading from '@/src/components/loading';
 import ErrorComponents from '@/src/components/error';
+import { AuthService } from '@/src/services/authService';
 
 export default function ProfilePage() {
     const { t, locale } = useI18n();
     const router = useRouter();
     const userStore = UserStore.getInstance();
+    const authService = AuthService.getInstance();
 
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
@@ -43,10 +45,9 @@ export default function ProfilePage() {
     const handleLogout = async () => {
         setIsLoggingOut(true);
         try {
-            userStore.removeUser();
+            await authService.logout();
             router.push(`/${locale}/user/login`);
-        } catch (err) {
-            console.error('Logout error:', err);
+        } catch {
             setError(t('error.logoutFailed' as keyof typeof t));
             setIsLoggingOut(false);
         }

@@ -1,10 +1,10 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { useTransition } from 'react';
 import { useI18n } from '@/src/i18n/useI18n';
-import { UserService } from '@/src/services/userService';
+import { UserStore } from '@/src/store/userStore';
 import {
     isPublicRoute,
     isProtectedRoute,
@@ -20,9 +20,17 @@ export function ClientRedirectWrapper({
     const router = useRouter();
     const pathname = usePathname();
     const { locale } = useI18n();
-    const userService = UserService.getInstance();
-    const user = userService.getUser();
+    const userStore = UserStore.getInstance();
     const [isPending, startTransition] = useTransition();
+    const [user, setUser] = useState(userStore.getUser());
+
+    useEffect(() => {
+        const unsubscribe = userStore.subscribe((updatedUser) => {
+            setUser(updatedUser);
+        });
+
+        return unsubscribe;
+    }, [userStore]);
 
     useEffect(() => {
         const route = extractRoute(pathname);

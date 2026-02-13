@@ -53,10 +53,10 @@ export class AuthService {
         try {
             await this.api.logout();
         } catch (error) {
-            console.error('Logout error:', error);
+            void error;
         } finally {
-            this.authStore.logout();
-            this.userStore.removeUser();
+            await this.authStore.logout();
+            await this.userStore.removeUser();
         }
     }
 

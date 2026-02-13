@@ -24,7 +24,7 @@ export class AuthStore {
         this.notifyObservers();
     }
 
-    logout(): void {
+    async logout(): Promise<void> {
         this.isAuthenticated = false;
         this.notifyObservers();
     }

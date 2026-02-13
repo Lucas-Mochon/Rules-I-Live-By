@@ -8,6 +8,7 @@ import Background from '@/src/components/background';
 import { AuthService } from '@/src/services/authService';
 import { useRouter } from 'next/navigation';
 import { AuthStore } from '@/src/store/authStore';
+import { HiCheckCircle, HiXCircle } from 'react-icons/hi';
 
 export default function RegisterPage() {
     const { t, locale } = useI18n();
@@ -21,10 +22,26 @@ export default function RegisterPage() {
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
 
+    const passwordRules = {
+        minLength: password.length >= 12,
+        hasUpperCase: /[A-Z]/.test(password),
+        hasLowerCase: /[a-z]/.test(password),
+        hasNumber: /[0-9]/.test(password),
+        hasSpecialChar: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password),
+    };
+
+    const isPasswordValid = Object.values(passwordRules).every(Boolean);
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
         setError(null);
+
+        if (!isPasswordValid) {
+            setError(t('error.passwordNotStrong' as keyof typeof t));
+            setLoading(false);
+            return;
+        }
 
         try {
             await authService.register({ username, email, password });
@@ -98,15 +115,136 @@ export default function RegisterPage() {
               focus:border-orange-400 transition"
                             required
                         />
+
+                        {password && (
+                            <div className="mt-2 p-3 bg-neutral-50 rounded-lg text-xs space-y-1">
+                                <div className="flex items-center gap-2">
+                                    {passwordRules.minLength ? (
+                                        <HiCheckCircle
+                                            className="text-green-500"
+                                            size={16}
+                                        />
+                                    ) : (
+                                        <HiXCircle
+                                            className="text-red-500"
+                                            size={16}
+                                        />
+                                    )}
+                                    <span
+                                        className={
+                                            passwordRules.minLength
+                                                ? 'text-green-600'
+                                                : 'text-neutral-600'
+                                        }
+                                    >
+                                        {t('auth.minLength' as keyof typeof t)}
+                                    </span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    {passwordRules.hasUpperCase ? (
+                                        <HiCheckCircle
+                                            className="text-green-500"
+                                            size={16}
+                                        />
+                                    ) : (
+                                        <HiXCircle
+                                            className="text-red-500"
+                                            size={16}
+                                        />
+                                    )}
+                                    <span
+                                        className={
+                                            passwordRules.hasUpperCase
+                                                ? 'text-green-600'
+                                                : 'text-neutral-600'
+                                        }
+                                    >
+                                        {t(
+                                            'auth.hasUpperCase' as keyof typeof t
+                                        )}
+                                    </span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    {passwordRules.hasLowerCase ? (
+                                        <HiCheckCircle
+                                            className="text-green-500"
+                                            size={16}
+                                        />
+                                    ) : (
+                                        <HiXCircle
+                                            className="text-red-500"
+                                            size={16}
+                                        />
+                                    )}
+                                    <span
+                                        className={
+                                            passwordRules.hasLowerCase
+                                                ? 'text-green-600'
+                                                : 'text-neutral-600'
+                                        }
+                                    >
+                                        {t(
+                                            'auth.hasLowerCase' as keyof typeof t
+                                        )}
+                                    </span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    {passwordRules.hasNumber ? (
+                                        <HiCheckCircle
+                                            className="text-green-500"
+                                            size={16}
+                                        />
+                                    ) : (
+                                        <HiXCircle
+                                            className="text-red-500"
+                                            size={16}
+                                        />
+                                    )}
+                                    <span
+                                        className={
+                                            passwordRules.hasNumber
+                                                ? 'text-green-600'
+                                                : 'text-neutral-600'
+                                        }
+                                    >
+                                        {t('auth.hasNumber' as keyof typeof t)}
+                                    </span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    {passwordRules.hasSpecialChar ? (
+                                        <HiCheckCircle
+                                            className="text-green-500"
+                                            size={16}
+                                        />
+                                    ) : (
+                                        <HiXCircle
+                                            className="text-red-500"
+                                            size={16}
+                                        />
+                                    )}
+                                    <span
+                                        className={
+                                            passwordRules.hasSpecialChar
+                                                ? 'text-green-600'
+                                                : 'text-neutral-600'
+                                        }
+                                    >
+                                        {t(
+                                            'auth.hasSpecialChar' as keyof typeof t
+                                        )}
+                                    </span>
+                                </div>
+                            </div>
+                        )}
                     </div>
 
                     <button
                         type="submit"
-                        disabled={loading}
+                        disabled={loading || !isPasswordValid}
                         className={`mt-2 bg-orange-500 hover:bg-orange-600 
               text-white font-semibold py-2 rounded-lg 
               transition duration-200 shadow-md hover:shadow-lg
-              ${loading ? 'opacity-70 cursor-not-allowed' : ''}`}
+              ${loading || !isPasswordValid ? 'opacity-70 cursor-not-allowed' : ''}`}
                     >
                         {loading ? t('loading') : t('auth.register')}
                     </button>
