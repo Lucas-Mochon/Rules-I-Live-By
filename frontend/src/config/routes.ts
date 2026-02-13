@@ -3,6 +3,7 @@ export const PUBLIC_ROUTES = ['user/login', 'user/register'];
 export const PROTECTED_ROUTES = [
     'dashboard',
     'profile',
+    'profile/edit',
     'rules',
     'rules/create',
     'rules/[id]',
