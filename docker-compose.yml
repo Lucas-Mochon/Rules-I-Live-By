@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  mongodb_rulesiliveby:
+    image: mongo:7.0
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_DATABASE: RulesILiveBy
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - app-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://root:root@mongodb_rulesiliveby:27017/RulesILiveBy?authSource=admin
+      SPRING_DATA_MONGODB_DATABASE: RulesILiveBy
+      SECRET_KEY: ${SECRET_KEY}
+      SPRING_PROFILES_ACTIVE: docker
+    networks:
+      - app-network
+    depends_on:
+      - mongodb_rulesiliveby
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      NEXT_PUBLIC_API_DOMAIN: http://backend:8080/api
+      NODE_ENV: production
+    networks:
+      - app-network
+    depends_on:
+      - backend
+
+volumes:
+  mongodb_data:
+
+networks:
+  app-network:
+    driver: bridge
