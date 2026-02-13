@@ -1,4 +1,5 @@
 import { AuthStore } from '../store/authStore';
+import { UserStore } from '../store/userStore';
 import { AuthApiService } from './api/authApiService';
 import { LoginResponse } from '../models/LoginResponse';
 import { UserService } from './userService';
@@ -7,12 +8,13 @@ export class AuthService {
     private static instance: AuthService;
 
     private authStore = AuthStore.getInstance();
+    private userStore = UserStore.getInstance();
     private userService = UserService.getInstance();
     private api = AuthApiService.getInstance();
 
     private constructor() {}
 
-    static getInstance() {
+    static getInstance(): AuthService {
         if (!AuthService.instance) {
             AuthService.instance = new AuthService();
         }
@@ -25,39 +27,48 @@ export class AuthService {
         password: string;
     }): Promise<LoginResponse> {
         const res = await this.api.register(payload);
-        this.authStore.setToken(res.jwtToken);
+        this.userStore.setUser({
+            id: res.id,
+            email: res.email,
+            username: res.username,
+        });
+
+        this.authStore.setAuthenticated(true);
         await this.userService.fetchMe();
         return res;
     }
 
-    async login(payload: {
-        email: string;
-        password: string;
-    }): Promise<LoginResponse> {
+    async login(payload: { email: string; password: string }): Promise<void> {
         const res = await this.api.login(payload);
-        await this.authStore.setToken(res.jwtToken);
+        this.userStore.setUser({
+            id: res.id,
+            email: res.email,
+            username: res.username,
+        });
+        this.authStore.setAuthenticated(true);
         await this.userService.fetchMe();
-        return res;
     }
 
-    async logout() {
-        const token = this.authStore.getToken();
-        if (token) {
-            await this.api.logout(token);
+    async logout(): Promise<void> {
+        try {
+            await this.api.logout();
+        } catch (error) {
+            console.error('Logout error:', error);
+        } finally {
+            this.authStore.logout();
+            this.userStore.removeUser();
         }
-        this.authStore.logout();
-        this.userService.removeUser();
     }
 
-    getToken() {
-        return this.authStore.getToken();
+    getUser() {
+        return this.userStore.getUser();
     }
 
-    isAuthenticated() {
-        return this.authStore.isAuthenticated();
+    isAuthenticated(): boolean {
+        return this.authStore.getIsAuthenticated();
     }
 
-    subscribe(observer: (token: string | null) => void) {
+    subscribe(observer: (isAuthenticated: boolean) => void): () => void {
         return this.authStore.subscribe(observer);
     }
 }

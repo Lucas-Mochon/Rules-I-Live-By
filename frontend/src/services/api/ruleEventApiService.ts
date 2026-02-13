@@ -22,9 +22,6 @@ export class RuleEventApiService extends AbstractApiService {
     }
 
     async list(payload: ListRuleEventsPayload): Promise<ListRuleEvents> {
-        const token = this.authStore.getToken();
-        if (!token) throw new Error('No token available');
-
         const params = new URLSearchParams();
         params.append('userId', payload.userId);
         params.append('page', payload.page.toString());
@@ -37,45 +34,27 @@ export class RuleEventApiService extends AbstractApiService {
             params.append('fromDate', payload.fromDate.toString());
 
         const res: Response<ListRuleEvents> = await this.get(
-            `/rule-events/?${params.toString()}`,
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            }
+            `/rule-events/?${params.toString()}`
         );
         return res.data;
     }
 
     async getOne(id: string): Promise<RuleEvent> {
-        const token = this.authStore.getToken();
-        if (!token) throw new Error('No token available');
-
-        const res: Response<RuleEvent> = await this.get(`/rule-events/${id}`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
+        const res: Response<RuleEvent> = await this.get(
+            `/rule-events/${id}`,
+            {}
+        );
         return res.data;
     }
 
     async create(payload: CreateRuleEvent): Promise<RuleEvent> {
-        const token = this.authStore.getToken();
-        if (!token) throw new Error('No token available');
-
         const res: Response<RuleEvent> = await this.post(`/rule-events/`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
             body: payload,
         });
         return res.data;
     }
 
     async update(payload: UpdateRuleEvent): Promise<RuleEvent> {
-        const token = this.authStore.getToken();
-        if (!token) throw new Error('No token available');
-
         const body: UpdateRuleEventPayload = {};
         if (payload.context) body.context = payload.context;
         if (payload.emotion) body.emotion = payload.emotion;
@@ -85,9 +64,6 @@ export class RuleEventApiService extends AbstractApiService {
         const res: Response<RuleEvent> = await this.put(
             `/rule-events/${payload.id}`,
             {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
                 body: body,
             }
         );

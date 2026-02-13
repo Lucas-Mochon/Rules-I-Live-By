@@ -19,27 +19,15 @@ export class UserApiService extends AbstractApiService {
     }
 
     async getMe(): Promise<User> {
-        const token = this.authStore.getToken();
-        if (!token) throw new Error('No token available');
-
-        const res: Response<User> = await this.get('/users/me', {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
+        const res: Response<User> = await this.get('/users/me');
         return res.data;
     }
 
     async update(data: UpdateUser): Promise<User> {
-        const token = this.authStore.getToken();
-        if (!token) throw new Error('No token available');
         const body: UpdateUserPayload = {};
         if (data.email) body.email = data.email;
         if (data.username) body.username = data.username;
         const res: Response<User> = await this.put(`/users/${data.userId}`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
             body: body,
         });
         return res.data;

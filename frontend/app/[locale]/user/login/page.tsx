@@ -7,10 +7,12 @@ import { useI18n } from '@/src/i18n/useI18n';
 import Link from 'next/link';
 import { AuthService } from '@/src/services/authService';
 import { useRouter } from 'next/navigation';
+import { AuthStore } from '@/src/store/authStore';
 
 export default function LoginPage() {
     const { t, locale } = useI18n();
     const authService = AuthService.getInstance();
+    const authStore = AuthStore.getInstance();
     const router = useRouter();
 
     const [email, setEmail] = useState('');
@@ -25,7 +27,9 @@ export default function LoginPage() {
 
         try {
             await authService.login({ email, password });
-            router.push(`/${locale}/dashboard`);
+            if (authStore.getIsAuthenticated())
+                router.push(`/${locale}/dashboard`);
+            throw new Error('Authentication failed');
         } catch {
             setError(t('error.loginFailed'));
         } finally {

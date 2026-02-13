@@ -1,8 +1,10 @@
+// src/main/java/com/RulesILiveBy/security/JwtAuthenticationFilter.java
 package com.RulesILiveBy.security;
 
 import com.RulesILiveBy.utils.JwtUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -10,7 +12,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
@@ -21,33 +22,46 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+    protected void doFilterInternal(HttpServletRequest request,
+            HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
+
         try {
-            String token = extractTokenFromRequest(request);
+            String token = getTokenFromCookie(request);
+
+            System.out.println("🔍 Request: " + request.getMethod() + " " + request.getRequestURI());
+            System.out.println("🔑 Token: " + (token != null ? token.substring(0, 20) + "..." : "NULL"));
 
             if (token != null && jwtUtil.isTokenValid(token)) {
                 String userId = jwtUtil.getUserIdFromToken(token);
+                System.out.println("✅ User authenticated: " + userId);
 
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userId,
-                        null, new ArrayList<>());
+                UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
+                        userId,
+                        null,
+                        null);
 
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+                SecurityContextHolder.getContext().setAuthentication(auth);
+            } else {
+                System.out.println("Token invalid or null");
             }
         } catch (Exception e) {
-            System.err.println("Erreur JWT: " + e.getMessage());
+            System.err.println("JWT validation failed: " + e.getMessage());
+            e.printStackTrace();
         }
 
         filterChain.doFilter(request, response);
     }
 
-    private String extractTokenFromRequest(HttpServletRequest request) {
-        String bearerToken = request.getHeader("Authorization");
-
-        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
-            return bearerToken.substring(7);
+    private String getTokenFromCookie(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("accessToken".equals(cookie.getName())) {
+                    return cookie.getValue();
+                }
+            }
         }
-
         return null;
     }
 }

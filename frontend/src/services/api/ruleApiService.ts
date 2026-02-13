@@ -23,9 +23,6 @@ export class RuleApiService extends AbstractApiService {
     }
 
     async listRules(payload: ListRulesPayload): Promise<ListRules> {
-        const token = this.authStore.getToken();
-        if (!token) throw new Error('No token available');
-
         const params = new URLSearchParams();
         params.append('userId', payload.userId);
         params.append('page', payload.page.toString());
@@ -38,106 +35,57 @@ export class RuleApiService extends AbstractApiService {
             params.append('fromDate', payload.fromDate.toString());
 
         const res: Response<ListRules> = await this.get(
-            `/rules/?${params.toString()}`,
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            }
+            `/rules/?${params.toString()}`
         );
         return res.data;
     }
 
     async getOne(id: string): Promise<Rule> {
-        const token = this.authStore.getToken();
-        if (!token) throw new Error('No token available');
-        const res: Response<Rule> = await this.get(`/rules/${id}`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
+        const res: Response<Rule> = await this.get(`/rules/${id}`);
         return res.data;
     }
 
     async mostBroken(userId: string): Promise<Rule> {
-        const token = this.authStore.getToken();
-        if (!token) throw new Error('No token available');
         const res: Response<Rule> = await this.get(
-            `/rules/most-broken/${userId}`,
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            }
+            `/rules/most-broken/${userId}`
         );
         return res.data;
     }
 
     async mostRespected(userId: string): Promise<Rule> {
-        const token = this.authStore.getToken();
-        if (!token) throw new Error('No token available');
         const res: Response<Rule> = await this.get(
-            `/rules/most-respected/${userId}`,
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            }
+            `/rules/most-respected/${userId}`
         );
         return res.data;
     }
 
     async statsRespected(userId: string): Promise<StatsRespected> {
-        const token = this.authStore.getToken();
-        if (!token) throw new Error('No token available');
         const res: Response<StatsRespected> = await this.get(
-            `/rules/stats/respected/${userId}`,
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            }
+            `/rules/stats/respected/${userId}`
         );
         return res.data;
     }
 
     async create(data: CreateRule): Promise<Rule> {
-        const token = this.authStore.getToken();
-        if (!token) throw new Error('No token available');
         const res: Response<Rule> = await this.post('/rules/', {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
             body: data,
         });
         return res.data;
     }
 
     async update(data: UpdateRule): Promise<Rule> {
-        const token = this.authStore.getToken();
-        if (!token) throw new Error('No token available');
-
         const body: UpdateRulePayload = {};
         if (data.description != null) body.description = data.description;
         if (data.title != null) body.title = data.title;
 
         const res: Response<Rule> = await this.put(`/rules/${data.id}`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
             body: body,
         });
         return res.data;
     }
 
     async archive(id: string): Promise<Rule> {
-        const token = this.authStore.getToken();
-        if (!token) throw new Error('No token available');
-        const res: Response<Rule> = await this.put(`/rules/${id}/archive`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
+        const res: Response<Rule> = await this.put(`/rules/${id}/archive`);
         return res.data;
     }
 }

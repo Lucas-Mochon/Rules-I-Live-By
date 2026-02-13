@@ -3,6 +3,7 @@ package com.RulesILiveBy.service;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +14,8 @@ import com.RulesILiveBy.dto.auth.LoginDto;
 import com.RulesILiveBy.dto.auth.LoginResponse;
 import com.RulesILiveBy.entity.User;
 import com.RulesILiveBy.utils.JwtUtil;
+
+import jakarta.servlet.http.HttpServletResponse;
 
 @Service
 public class AuthService {
@@ -27,7 +30,7 @@ public class AuthService {
     }
 
     @Transactional
-    public LoginResponse register(CreateUserDto createUserDTO) {
+    public LoginResponse register(CreateUserDto createUserDTO, HttpServletResponse response) {
         Optional<User> existingUser = userDao.findByEmail(createUserDTO.getEmail());
         if (existingUser.isPresent()) {
             throw new RuntimeException("Email already in use");
@@ -44,20 +47,23 @@ public class AuthService {
         User savedUser = userDao.save(user);
 
         String refreshToken = jwtUtil.generateRefreshToken(savedUser);
+        String accessToken = jwtUtil.generateJwtToken(savedUser);
+
         savedUser.setRefreshToken(refreshToken);
         userDao.save(savedUser);
 
-        String jwtToken = jwtUtil.generateJwtToken(savedUser);
+        setRefreshTokenCookie(response, refreshToken);
+        setAccessTokenCookie(response, accessToken);
 
         return new LoginResponse(
                 savedUser.getId(),
                 savedUser.getEmail(),
                 savedUser.getUsername(),
-                jwtToken);
+                accessToken);
     }
 
     @Transactional
-    public LoginResponse login(LoginDto loginDto) {
+    public LoginResponse login(LoginDto loginDto, HttpServletResponse response) {
         Optional<User> user = userDao.findByEmail(loginDto.getEmail());
 
         if (user.isEmpty()) {
@@ -71,21 +77,24 @@ public class AuthService {
         }
 
         String refreshToken = jwtUtil.generateRefreshToken(existingUser);
+        String accessToken = jwtUtil.generateJwtToken(existingUser);
+
         existingUser.setRefreshToken(refreshToken);
         userDao.save(existingUser);
 
-        String jwtToken = jwtUtil.generateJwtToken(existingUser);
+        setRefreshTokenCookie(response, refreshToken);
+        setAccessTokenCookie(response, accessToken);
 
         return new LoginResponse(
                 existingUser.getId(),
                 existingUser.getEmail(),
                 existingUser.getUsername(),
-                jwtToken);
+                accessToken);
     }
 
     @Transactional
-    public String refresh(String token) {
-        String userId = jwtUtil.validateTokenAndGetUserId(token);
+    public String refresh(String refreshToken, HttpServletResponse response) {
+        String userId = jwtUtil.validateTokenAndGetUserId(refreshToken);
 
         Optional<User> userOpt = userDao.findById(userId);
 
@@ -94,25 +103,32 @@ public class AuthService {
         }
 
         User user = userOpt.get();
-
         String storedRefreshToken = user.getRefreshToken();
 
-        if (storedRefreshToken == null || !jwtUtil.isTokenValid(storedRefreshToken)) {
-            throw new RuntimeException("Invalid or expired refresh token");
+        if (storedRefreshToken == null || !storedRefreshToken.equals(refreshToken)) {
+            throw new RuntimeException("Invalid refresh token");
         }
 
+        if (!jwtUtil.isTokenValid(refreshToken)) {
+            throw new RuntimeException("Refresh token expired");
+        }
+
+        String newAccessToken = jwtUtil.generateJwtToken(user);
         String newRefreshToken = jwtUtil.generateRefreshToken(user);
+
         user.setRefreshToken(newRefreshToken);
         userDao.save(user);
 
-        String jwtToken = jwtUtil.generateJwtToken(user);
+        setRefreshTokenCookie(response, newRefreshToken);
+        setAccessTokenCookie(response, newAccessToken);
 
-        return jwtToken;
+        return newAccessToken;
     }
 
     @Transactional
-    public void logout(String token) {
-        String userId = jwtUtil.getUserIdFromToken(token);
+    public void logout(String refreshToken, HttpServletResponse response) {
+        String userId = jwtUtil.validateTokenAndGetUserId(refreshToken);
+
         Optional<User> userOpt = userDao.findById(userId);
 
         if (userOpt.isEmpty()) {
@@ -123,5 +139,56 @@ public class AuthService {
 
         user.setRefreshToken(null);
         userDao.save(user);
+
+        clearCookies(response);
+    }
+
+    private void setRefreshTokenCookie(HttpServletResponse response, String token) {
+        ResponseCookie cookie = ResponseCookie
+                .from("refreshToken", token)
+                .httpOnly(true)
+                .secure(true)
+                .sameSite("Strict")
+                .path("/")
+                .maxAge(7 * 24 * 60 * 60)
+                .build();
+
+        response.addHeader("Set-Cookie", cookie.toString());
+    }
+
+    private void setAccessTokenCookie(HttpServletResponse response, String token) {
+        ResponseCookie cookie = ResponseCookie
+                .from("accessToken", token)
+                .httpOnly(true)
+                .secure(true)
+                .sameSite("Strict")
+                .path("/")
+                .maxAge(30 * 60)
+                .build();
+
+        response.addHeader("Set-Cookie", cookie.toString());
+    }
+
+    private void clearCookies(HttpServletResponse response) {
+        ResponseCookie refreshCookie = ResponseCookie
+                .from("refreshToken", "")
+                .httpOnly(true)
+                .secure(true)
+                .sameSite("Strict")
+                .path("/")
+                .maxAge(0)
+                .build();
+
+        ResponseCookie accessCookie = ResponseCookie
+                .from("accessToken", "")
+                .httpOnly(true)
+                .secure(true)
+                .sameSite("Strict")
+                .path("/")
+                .maxAge(0)
+                .build();
+
+        response.addHeader("Set-Cookie", refreshCookie.toString());
+        response.addHeader("Set-Cookie", accessCookie.toString());
     }
 }

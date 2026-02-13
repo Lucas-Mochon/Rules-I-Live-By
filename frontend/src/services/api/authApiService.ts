@@ -33,21 +33,13 @@ export class AuthApiService extends AbstractApiService {
         return res.data;
     }
 
-    async refresh(token: string): Promise<string> {
-        const res: Response<string> = await this.get('/users/me', {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
+    async refresh(): Promise<string> {
+        const res: Response<string> = await this.post('/auth/refresh');
         if (!res.success) throw new Error(res.message);
         return res.data;
     }
 
-    async logout(token: string): Promise<void> {
-        await this.post('/auth/logout', {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
+    async logout(): Promise<void> {
+        await this.post('/auth/logout');
     }
 }

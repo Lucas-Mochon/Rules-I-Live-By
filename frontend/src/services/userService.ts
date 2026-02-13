@@ -23,6 +23,7 @@ export class UserService {
             this.userStore.setUser(user);
             return user;
         } catch (err) {
+            console.log('err:', err);
             this.userStore.removeUser();
             throw err;
         }

@@ -6,7 +6,7 @@ export class AbstractApiService {
     private baseUrl: string;
     protected authStore = AuthStore.getInstance();
     private isRefreshing = false;
-    private refreshPromise: Promise<string | null> | null = null;
+    private refreshPromise: Promise<boolean> | null = null;
 
     constructor() {
         if (!process.env.NEXT_PUBLIC_API_DOMAIN) {
@@ -15,43 +15,33 @@ export class AbstractApiService {
         this.baseUrl = process.env.NEXT_PUBLIC_API_DOMAIN;
     }
 
-    private async refreshToken(): Promise<string | null> {
+    private async refreshToken(): Promise<boolean> {
         if (this.isRefreshing) {
-            return this.refreshPromise;
+            return this.refreshPromise || false;
         }
 
         this.isRefreshing = true;
 
         this.refreshPromise = (async () => {
             try {
-                const token = this.authStore.getToken();
-                if (!token) {
-                    this.authStore.logout();
-                    return null;
-                }
-
                 const res = await fetch(`${this.baseUrl}/auth/refresh`, {
                     method: 'POST',
+                    credentials: 'include',
                     headers: {
                         'Content-Type': 'application/json',
-                        Authorization: `Bearer ${token}`,
                     },
                 });
 
                 if (!res.ok) {
                     this.authStore.logout();
-                    return null;
+                    return false;
                 }
 
-                const data = await res.json();
-                const newToken = data.data;
-
-                this.authStore.setToken(newToken);
-                return newToken;
+                return true;
             } catch (error) {
                 console.error('Token refresh failed:', error);
                 this.authStore.logout();
-                return null;
+                return false;
             } finally {
                 this.isRefreshing = false;
                 this.refreshPromise = null;
@@ -67,13 +57,13 @@ export class AbstractApiService {
         options: RequestOptions = {},
         retry = true
     ): Promise<any> {
-        const { body, token, headers } = options;
+        const { body, headers } = options;
 
         const fetchOptions: RequestInit = {
             method,
+            credentials: 'include',
             headers: {
                 'Content-Type': 'application/json',
-                ...(token ? { Authorization: `Bearer ${token}` } : {}),
                 ...headers,
             },
             ...(body ? { body: JSON.stringify(body) } : {}),
@@ -81,10 +71,10 @@ export class AbstractApiService {
 
         const res = await fetch(`${this.baseUrl}${path}`, fetchOptions);
 
-        if (res.status === 403 && retry) {
-            const newToken = await this.refreshToken();
+        if (res.status === 401 && retry) {
+            const refreshed = await this.refreshToken();
 
-            if (newToken) {
+            if (refreshed) {
                 return this.request(path, method, options, false);
             } else {
                 this.authStore.logout();

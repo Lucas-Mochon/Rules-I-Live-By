@@ -1,3 +1,4 @@
+// src/main/java/com/RulesILiveBy/config/SecurityConfig.java
 package com.RulesILiveBy.config;
 
 import com.RulesILiveBy.security.JwtAuthenticationFilter;
@@ -35,5 +36,4 @@ public class SecurityConfig {
 
         return http.build();
     }
-
 }

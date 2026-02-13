@@ -3,7 +3,6 @@ package com.RulesILiveBy.service;
 import com.RulesILiveBy.dao.UserDao;
 import com.RulesILiveBy.dto.user.UpdateRequestDto;
 import com.RulesILiveBy.dto.user.UserDto;
-import com.RulesILiveBy.entity.User;
 import com.RulesILiveBy.utils.JwtUtil;
 
 import org.springframework.stereotype.Service;
@@ -36,8 +35,15 @@ public class UserService {
     }
 
     @Transactional
-    public Optional<User> getUserById(String id) {
-        return userDao.findById(id);
+    public Optional<UserDto> getUserById(String id) {
+        return userDao.findById(id)
+                .map(user -> {
+                    UserDto dto = new UserDto();
+                    dto.setId(user.getId());
+                    dto.setEmail(user.getEmail());
+                    dto.setUsername(user.getUsername());
+                    return dto;
+                });
     }
 
     @Transactional

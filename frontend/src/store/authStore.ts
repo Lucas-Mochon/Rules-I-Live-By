@@ -1,55 +1,42 @@
-import Cookies from 'js-cookie';
-
-type AuthObserver = (token: string | null) => void;
+type AuthObserver = (isAuthenticated: boolean) => void;
 
 export class AuthStore {
-    private token: string | null = null;
+    private isAuthenticated: boolean = false;
     private observers: AuthObserver[] = [];
 
     private static instance: AuthStore;
 
-    static getInstance() {
+    static getInstance(): AuthStore {
         if (!AuthStore.instance) {
             AuthStore.instance = new AuthStore();
         }
         return AuthStore.instance;
     }
 
-    private constructor() {
-        const token = Cookies.get('jwtToken');
-        if (token) {
-            this.token = token;
-        }
+    private constructor() {}
+
+    getIsAuthenticated(): boolean {
+        return this.isAuthenticated;
     }
 
-    getToken() {
-        return this.token;
-    }
-
-    async setToken(token: string) {
-        this.token = token;
-        Cookies.set('jwtToken', token);
+    setAuthenticated(authenticated: boolean): void {
+        this.isAuthenticated = authenticated;
         this.notifyObservers();
     }
 
-    isAuthenticated() {
-        return !!this.token;
-    }
-
-    logout() {
-        this.token = null;
-        Cookies.remove('jwtToken');
+    logout(): void {
+        this.isAuthenticated = false;
         this.notifyObservers();
     }
 
-    subscribe(observer: AuthObserver) {
+    subscribe(observer: AuthObserver): () => void {
         this.observers.push(observer);
         return () => {
             this.observers = this.observers.filter((o) => o !== observer);
         };
     }
 
-    private notifyObservers() {
-        this.observers.forEach((o) => o(this.token));
+    private notifyObservers(): void {
+        this.observers.forEach((o) => o(this.isAuthenticated));
     }
 }

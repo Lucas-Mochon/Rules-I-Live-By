@@ -7,10 +7,12 @@ import Link from 'next/link';
 import Background from '@/src/components/background';
 import { AuthService } from '@/src/services/authService';
 import { useRouter } from 'next/navigation';
+import { AuthStore } from '@/src/store/authStore';
 
 export default function RegisterPage() {
     const { t, locale } = useI18n();
     const authService = AuthService.getInstance();
+    const authStore = AuthStore.getInstance();
     const router = useRouter();
 
     const [username, setUsername] = useState('');
@@ -26,7 +28,9 @@ export default function RegisterPage() {
 
         try {
             await authService.register({ username, email, password });
-            router.push(`/${locale}/dashboard`);
+            if (authStore.getIsAuthenticated())
+                router.push(`/${locale}/dashboard`);
+            throw new Error('Authentication failed');
         } catch {
             setError(t('error.registrationFailed'));
         } finally {
