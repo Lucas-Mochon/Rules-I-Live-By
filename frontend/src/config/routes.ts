@@ -1,4 +1,4 @@
-export const PUBLIC_ROUTES = ['user/login', 'user/register'];
+export const PUBLIC_ROUTES = ['/', 'user/login', 'user/register'];
 
 export const PROTECTED_ROUTES = [
     'dashboard',
@@ -40,4 +40,9 @@ export function extractLocale(pathname: string): string {
 export function extractRoute(pathname: string): string {
     const parts = pathname.split('/').filter(Boolean);
     return '/' + parts.slice(1).join('/');
+}
+
+export function isValidRoute(pathname: string): boolean {
+    const route = extractRoute(pathname);
+    return isPublicRoute(route) || isProtectedRoute(route);
 }

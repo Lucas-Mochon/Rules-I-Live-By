@@ -1,8 +1,9 @@
 import { getMessages } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
 import { locales, type Locale } from '@/src/i18n/config';
-import ClientRedirectWrapper from './clientRedirectWrapper';
 import { notFound } from 'next/navigation';
+import { ClientRedirectWrapper } from './clientRedirectWrapper';
+import Navbar from '@/src/components/navbar';
 
 export default async function LocaleLayout({
     children,
@@ -20,16 +21,19 @@ export default async function LocaleLayout({
     const messages = await getMessages({ locale });
 
     return (
-        <html lang={locale}>
-            <body className="min-h-screen bg-neutral-50">
+        <div lang={locale}>
+            <div className="min-h-screen bg-neutral-50">
                 <NextIntlClientProvider
                     messages={messages}
                     locale={locale}
                 >
-                    <ClientRedirectWrapper>{children}</ClientRedirectWrapper>
+                    <ClientRedirectWrapper>
+                        <Navbar />
+                        {children}
+                    </ClientRedirectWrapper>
                 </NextIntlClientProvider>
-            </body>
-        </html>
+            </div>
+        </div>
     );
 }
 
