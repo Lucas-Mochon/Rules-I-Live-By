@@ -64,7 +64,7 @@ export default function RulesPageContent() {
 
     useEffect(() => {
         fetchRules();
-    }, [page, size, status, fromDate, toDate, fetchRules]);
+    }, [page, size, status, fromDate, toDate]);
 
     const rules = ruleStore.getRules()?.rules || [];
 
@@ -135,10 +135,10 @@ export default function RulesPageContent() {
                                 onClick={() => handleRuleClick(rule.id)}
                                 className="w-full sm:w-5/12 lg:w-5/12 cursor-pointer transition-all duration-200 hover:shadow-md"
                             >
-                                <Card>
+                                <Card className="w-full">
                                     <div className="flex flex-col gap-3">
                                         <div className="flex items-center justify-between gap-3 min-w-0">
-                                            <h1 className="text-2xl font-bold text-neutral-800 overflow-wrap wrap-break-word max-w-lg">
+                                            <h1 className="text-2xl font-bold text-neutral-800 wrap-break-word max-w-96">
                                                 {rule.title}
                                             </h1>
                                             <span className="px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap shrink-0">
