@@ -1,4 +1,4 @@
 export const locales = ['en', 'fr', 'es'] as const;
-export type Locale = (typeof locales)[number];
+export const defaultLocale = 'en' as const;
 
-export const defaultLocale: Locale = 'en';
+export type Locale = (typeof locales)[number];

@@ -1,36 +1,40 @@
-import { I18nProvider } from '@/src/i18n/I18nProvider';
-import { locales, Locale } from '@/src/i18n/config';
+import { getMessages } from 'next-intl/server';
+import { NextIntlClientProvider } from 'next-intl';
+import { locales, type Locale } from '@/src/i18n/config';
 import ClientRedirectWrapper from './clientRedirectWrapper';
+import { notFound } from 'next/navigation';
 
 export default async function LocaleLayout({
     children,
     params,
 }: {
     children: React.ReactNode;
-    params: { locale: string } | Promise<{ locale: string }>;
+    params: Promise<{ locale: string }>;
 }) {
-    const resolvedParams = await params;
-    const { locale } = resolvedParams;
+    const { locale } = await params;
 
     if (!locales.includes(locale as Locale)) {
-        return null;
+        notFound();
     }
 
-    const messages = (await import(`@/src/i18n/messages/${locale}.json`))
-        .default;
+    const messages = await getMessages({ locale });
 
     return (
-        <I18nProvider
-            locale={locale as Locale}
-            messages={messages}
-        >
-            <div className="min-h-screen bg-neutral-50">
-                <ClientRedirectWrapper>{children}</ClientRedirectWrapper>
-            </div>
-        </I18nProvider>
+        <html lang={locale}>
+            <body className="min-h-screen bg-neutral-50">
+                <NextIntlClientProvider
+                    messages={messages}
+                    locale={locale}
+                >
+                    <ClientRedirectWrapper>{children}</ClientRedirectWrapper>
+                </NextIntlClientProvider>
+            </body>
+        </html>
     );
 }
 
 export function generateStaticParams() {
     return locales.map((locale) => ({ locale }));
 }
+
+export const dynamicParams = false;

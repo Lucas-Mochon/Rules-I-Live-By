@@ -30,6 +30,8 @@ export default function Navbar() {
         { key: 'profile', path: '/profile' },
     ];
 
+    const localeItems = [];
+
     const items = user
         ? [{ key: 'dashboard', path: '/dashboard' }, ...commonItems]
         : [];
