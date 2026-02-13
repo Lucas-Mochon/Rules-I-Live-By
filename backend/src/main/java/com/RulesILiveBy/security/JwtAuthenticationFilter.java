@@ -29,12 +29,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         try {
             String token = getTokenFromCookie(request);
 
-            System.out.println("🔍 Request: " + request.getMethod() + " " + request.getRequestURI());
-            System.out.println("🔑 Token: " + (token != null ? token.substring(0, 20) + "..." : "NULL"));
-
             if (token != null && jwtUtil.isTokenValid(token)) {
                 String userId = jwtUtil.getUserIdFromToken(token);
-                System.out.println("✅ User authenticated: " + userId);
 
                 UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
                         userId,
@@ -42,11 +38,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                         null);
 
                 SecurityContextHolder.getContext().setAuthentication(auth);
-            } else {
-                System.out.println("Token invalid or null");
             }
         } catch (Exception e) {
-            System.err.println("JWT validation failed: " + e.getMessage());
             e.printStackTrace();
         }
 

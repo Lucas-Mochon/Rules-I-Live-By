@@ -6,14 +6,14 @@ interface RuleListContextType {
     page: number;
     size: number;
     status?: RuleStatus;
-    fromDate?: string;
-    toDate?: string;
+    fromDate?: Date;
+    toDate?: Date;
 
     setPage: (page: number) => void;
     setSize: (size: number) => void;
     setStatus: (status?: RuleStatus) => void;
-    setFromDate: (date?: string) => void;
-    setToDate: (date?: string) => void;
+    setFromDate: (date?: Date) => void;
+    setToDate: (date?: Date) => void;
 
     getPayload: () => Promise<ListRulesPayload>;
 

@@ -6,11 +6,11 @@ import { MdFilterList, MdRefresh, MdClose } from 'react-icons/md';
 
 interface RuleFiltersProps {
     status?: RuleStatus;
-    fromDate?: string;
-    toDate?: string;
+    fromDate?: Date;
+    toDate?: Date;
     onStatusChange: (status?: RuleStatus) => void;
-    onFromDateChange: (date?: string) => void;
-    onToDateChange: (date?: string) => void;
+    onFromDateChange: (date?: Date) => void;
+    onToDateChange: (date?: Date) => void;
     onReset: () => void;
 }
 
@@ -24,16 +24,6 @@ export default function RuleFilters({
     onReset,
 }: RuleFiltersProps) {
     const { t } = useI18n();
-
-    const formatDateForInput = (dateString?: string): string => {
-        if (!dateString) return '';
-        return dateString.split('T')[0];
-    };
-
-    const formatDateForApi = (dateString: string): string => {
-        if (!dateString) return '';
-        return `${dateString}T00:00:00`;
-    };
 
     const hasActiveFilters = status || fromDate || toDate;
 
@@ -132,11 +122,15 @@ export default function RuleFilters({
                     <div className="relative group">
                         <input
                             type="date"
-                            value={formatDateForInput(fromDate)}
+                            value={
+                                fromDate
+                                    ? fromDate.toISOString().split('T')[0]
+                                    : ''
+                            }
                             onChange={(e) =>
                                 onFromDateChange(
                                     e.target.value
-                                        ? formatDateForApi(e.target.value)
+                                        ? new Date(e.target.value)
                                         : undefined
                                 )
                             }
@@ -161,11 +155,13 @@ export default function RuleFilters({
                     <div className="relative group">
                         <input
                             type="date"
-                            value={formatDateForInput(toDate)}
+                            value={
+                                toDate ? toDate.toISOString().split('T')[0] : ''
+                            }
                             onChange={(e) =>
                                 onToDateChange(
                                     e.target.value
-                                        ? formatDateForApi(e.target.value)
+                                        ? new Date(e.target.value)
                                         : undefined
                                 )
                             }
