@@ -27,8 +27,7 @@ export default function RegisterPage() {
         try {
             await authService.register({ username, email, password });
             router.push(`/${locale}/dashboard`);
-        } catch (err: unknown) {
-            void err;
+        } catch {
             setError(t('error.registrationFailed'));
         } finally {
             setLoading(false);

@@ -13,6 +13,7 @@ import RulePagination from '@/src/components/rulePagination';
 import { useRuleEventListContext } from '../context/ruleEventListContext';
 import { RuleEvent } from '../models/ruleEvent';
 import Loading from './loading';
+import ErrorComponents from './error';
 
 export default function RuleEventContent() {
     const { t } = useI18n();
@@ -20,6 +21,7 @@ export default function RuleEventContent() {
     const params = useParams();
     const locale = params.locale as string;
     const [ruleEvents, setRuleEvents] = useState<RuleEvent[]>([]);
+    const [error, setError] = useState<string | null>(null);
 
     const ruleEventStore = RuleEventStore.getInstance();
     const ruleEventService = RuleEventService.getInstance();
@@ -76,8 +78,8 @@ export default function RuleEventContent() {
                 setRuleEvents([]);
                 setTotalPages(1);
             }
-        } catch (error) {
-            console.error('Error fetching rule events:', error);
+        } catch {
+            setError(t('error.error'));
             setRuleEvents([]);
             setTotalPages(1);
         } finally {
@@ -104,6 +106,10 @@ export default function RuleEventContent() {
 
     if (loading) {
         return <Loading />;
+    }
+
+    if (error) {
+        return <ErrorComponents message={error} />;
     }
 
     return (

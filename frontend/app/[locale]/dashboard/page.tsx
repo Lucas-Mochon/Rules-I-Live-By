@@ -2,6 +2,7 @@
 
 import Background from '@/src/components/background';
 import Card from '@/src/components/card';
+import ErrorComponents from '@/src/components/error';
 import Loading from '@/src/components/loading';
 import { useI18n } from '@/src/i18n/useI18n';
 import { RuleService } from '@/src/services/ruleService';
@@ -61,6 +62,10 @@ export default function Dashboard() {
         return <Loading />;
     }
 
+    if (error) {
+        return <ErrorComponents message={error}></ErrorComponents>;
+    }
+
     return (
         <Background className="min-h-screen p-4 sm:p-6 md:p-8">
             <div className="max-w-7xl mx-auto">
@@ -72,14 +77,6 @@ export default function Dashboard() {
                         {t('dashboard.subtitle' as keyof typeof t)}
                     </p>
                 </div>
-
-                {error && (
-                    <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
-                        <p className="text-red-700 font-medium text-sm">
-                            {error}
-                        </p>
-                    </div>
-                )}
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-fr">
                     <div className="group">

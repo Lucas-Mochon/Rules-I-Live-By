@@ -78,10 +78,7 @@ export default function CreateRule() {
             }
 
             await router.push(`/${locale}/rules/${createdRule.id}`);
-        } catch (err) {
-            const errorMessage =
-                err instanceof Error ? err.message : 'Unknown error';
-            console.error('Rule creation error:', errorMessage);
+        } catch {
             setError(t('error.createRuleFailed'));
         } finally {
             setLoading(false);

@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import { RuleEvent } from '@/src/models/ruleEvent';
 import { MdEdit } from 'react-icons/md';
 import Loading from '@/src/components/loading';
+import ErrorComponents from '@/src/components/error';
 
 export default function RuleEventDetail() {
     const { t, locale } = useI18n();
@@ -45,8 +46,7 @@ export default function RuleEventDetail() {
                 const fetchedRuleEvent = await ruleEventStore.getRuleEvent();
                 setRuleEvent(fetchedRuleEvent);
                 setLoading(false);
-            } catch (err) {
-                console.error('Error loading rule event:', err);
+            } catch {
                 setError(t('error.ruleEventNotFound' as keyof typeof t));
                 setLoading(false);
             }
@@ -65,20 +65,14 @@ export default function RuleEventDetail() {
 
     if (error || !ruleEvent) {
         return (
-            <Background className="flex items-center justify-center min-h-screen p-4">
-                <Card>
-                    <p className="text-neutral-600 mb-4">
-                        {error ||
-                            t('error.ruleEventNotFound' as keyof typeof t)}
-                    </p>
-                    <button
-                        onClick={() => router.push(`/${locale}/rule-event`)}
-                        className="text-orange-500 hover:text-orange-600 font-semibold transition"
-                    >
-                        {t('common.goBack' as keyof typeof t)}
-                    </button>
-                </Card>
-            </Background>
+            <ErrorComponents
+                message={
+                    error || t('error.ruleEventNotFound' as keyof typeof t)
+                }
+                showButton={true}
+                buttonText={t('common.goBack' as keyof typeof t)}
+                onButtonClick={() => router.push(`/${locale}/rule-event`)}
+            ></ErrorComponents>
         );
     }
 

@@ -26,8 +26,7 @@ export default function LoginPage() {
         try {
             await authService.login({ email, password });
             router.push(`/${locale}/dashboard`);
-        } catch (err: unknown) {
-            void err;
+        } catch {
             setError(t('error.loginFailed'));
         } finally {
             setLoading(false);

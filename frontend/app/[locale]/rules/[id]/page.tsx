@@ -11,6 +11,7 @@ import { Rule } from '@/src/models/Rule';
 import { RuleStatus } from '@/src/types/enum/ruleStatus';
 import { MdEdit, MdArchive } from 'react-icons/md';
 import Loading from '@/src/components/loading';
+import ErrorComponents from '@/src/components/error';
 
 export default function RuleDetail() {
     const { t, locale } = useI18n();
@@ -48,9 +49,8 @@ export default function RuleDetail() {
                 setRule(ruleStore.getRule());
 
                 setLoading(false);
-            } catch (err) {
-                void err;
-                setError('error');
+            } catch {
+                setError(t('error.error'));
                 setLoading(false);
             }
         };
@@ -68,8 +68,7 @@ export default function RuleDetail() {
             await ruleService.archive(ruleId);
 
             router.push(`/${locale}/rules`);
-        } catch (err) {
-            void err;
+        } catch {
             setError(t('error.archiveRuleFailed' as keyof typeof t));
             setArchiving(false);
         }
@@ -81,19 +80,12 @@ export default function RuleDetail() {
 
     if (error || !rule) {
         return (
-            <Background className="flex items-center justify-center min-h-screen">
-                <Card>
-                    <p className="text-neutral-600">
-                        {error || t('error.ruleNotFound' as keyof typeof t)}
-                    </p>
-                    <button
-                        onClick={() => router.push(`/${locale}/rules`)}
-                        className="mt-4 text-orange-500 hover:text-orange-600 font-semibold transition"
-                    >
-                        {t('common.goBack')}
-                    </button>
-                </Card>
-            </Background>
+            <ErrorComponents
+                message={error || t('error.ruleNotFound' as keyof typeof t)}
+                showButton={true}
+                buttonText={t('common.goBack')}
+                onButtonClick={() => router.push(`/${locale}/rules`)}
+            ></ErrorComponents>
         );
     }
 

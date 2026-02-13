@@ -50,8 +50,7 @@ export default function CreateRuleEvent() {
 
                 const allRules = await ruleServiceRef.current.listAll(userId);
                 setRules(allRules);
-            } catch (err) {
-                console.error('Error loading rules:', err);
+            } catch {
                 setError(t('error.error' as keyof typeof t));
             } finally {
                 setLoadingRules(false);

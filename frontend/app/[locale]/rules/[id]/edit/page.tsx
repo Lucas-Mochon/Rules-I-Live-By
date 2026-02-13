@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react';
 import { RuleStatus } from '@/src/types/enum/ruleStatus';
 import { UpdateRule as UpdateRuleDto } from '@/src/types/interfaces/updateRule';
 import Loading from '@/src/components/loading';
+import ErrorComponents from '@/src/components/error';
 
 interface FormData {
     title: string;
@@ -93,8 +94,7 @@ export default function UpdateRule() {
                 setOriginalData(data);
                 setInitialLoading(false);
                 setHasLoaded(true);
-            } catch (err) {
-                void err;
+            } catch {
                 setError(t('error.loadRuleFailed' as keyof typeof t));
                 setInitialLoading(false);
                 setHasLoaded(true);
@@ -164,8 +164,7 @@ export default function UpdateRule() {
             }
 
             router.push(`/${locale}/rules/${ruleId}`);
-        } catch (err) {
-            void err;
+        } catch {
             setError(t('error.updateRuleFailed' as keyof typeof t));
         } finally {
             setLoading(false);
@@ -174,6 +173,10 @@ export default function UpdateRule() {
 
     if (initialLoading) {
         return <Loading />;
+    }
+
+    if (error) {
+        return <ErrorComponents message={error}></ErrorComponents>;
     }
 
     return (
@@ -191,14 +194,6 @@ export default function UpdateRule() {
                             {t('rule.editRule' as keyof typeof t)}
                         </p>
                     </div>
-
-                    {error && (
-                        <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
-                            <p className="text-red-700 text-sm font-medium">
-                                {error}
-                            </p>
-                        </div>
-                    )}
 
                     <div className="flex flex-col gap-2">
                         <label

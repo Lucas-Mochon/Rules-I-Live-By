@@ -12,6 +12,8 @@ import { useI18n } from '@/src/i18n/useI18n';
 import RuleFilters from '@/src/components/ruleFilter';
 import RulePagination from '@/src/components/rulePagination';
 import { RuleStatus } from '@/src/types/enum/ruleStatus';
+import Loading from '@/src/components/loading';
+import ErrorComponents from '@/src/components/error';
 
 export default function RulesPageContent() {
     const { t } = useI18n();
@@ -39,6 +41,7 @@ export default function RulesPageContent() {
 
     const [loading, setLoading] = useState(false);
     const [totalPages, setTotalPages] = useState(1);
+    const [error, setError] = useState<string | null>(null);
 
     const fetchRules = useCallback(async () => {
         setLoading(true);
@@ -52,12 +55,12 @@ export default function RulesPageContent() {
                     Math.ceil(response.totalElements / response.size)
                 );
             }
-        } catch (error) {
-            console.error('Error fetching rules:', error);
+        } catch {
+            setError(t('error.error'));
         } finally {
             setLoading(false);
         }
-    }, [getPayload, ruleService, ruleStore]);
+    }, [getPayload, ruleService, ruleStore, t]);
 
     useEffect(() => {
         fetchRules();
@@ -83,6 +86,14 @@ export default function RulesPageContent() {
     const handleCreateRule = () => {
         router.push(`/${locale}/rules/create`);
     };
+
+    if (loading) {
+        return <Loading />;
+    }
+
+    if (error) {
+        return <ErrorComponents message={error} />;
+    }
 
     return (
         <Background>
@@ -117,13 +128,7 @@ export default function RulesPageContent() {
 
             <div className="px-4 sm:px-6 md:px-8 lg:px-12">
                 <div className="flex flex-wrap justify-around gap-6 min-h-96">
-                    {loading ? (
-                        <div className="w-full text-center py-12">
-                            <p className="text-neutral-600">
-                                {t('common.loading' as keyof typeof t)}
-                            </p>
-                        </div>
-                    ) : rules.length > 0 ? (
+                    {rules.length > 0 ? (
                         rules.map((rule) => (
                             <div
                                 key={rule.id}

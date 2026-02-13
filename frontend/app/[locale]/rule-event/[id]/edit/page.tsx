@@ -2,6 +2,7 @@
 
 import Background from '@/src/components/background';
 import Card from '@/src/components/card';
+import ErrorComponents from '@/src/components/error';
 import Loading from '@/src/components/loading';
 import { useI18n } from '@/src/i18n/useI18n';
 import { RuleEventService } from '@/src/services/ruleEventService';
@@ -95,8 +96,7 @@ export default function UpdateRuleEvent() {
                 setOriginalData(data);
                 setInitialLoading(false);
                 setHasLoaded(true);
-            } catch (err) {
-                console.error('Error loading rule event:', err);
+            } catch {
                 setError(t('error.loadRuleEventFailed' as keyof typeof t));
                 setInitialLoading(false);
                 setHasLoaded(true);
@@ -171,8 +171,7 @@ export default function UpdateRuleEvent() {
             await ruleEventService.update(data);
 
             router.push(`/${locale}/rule-event/${ruleEventId}`);
-        } catch (err) {
-            console.error('Error updating rule event:', err);
+        } catch {
             setError(t('error.updateRuleEventFailed' as keyof typeof t));
         } finally {
             setLoading(false);
@@ -181,6 +180,10 @@ export default function UpdateRuleEvent() {
 
     if (initialLoading) {
         return <Loading />;
+    }
+
+    if (error) {
+        return <ErrorComponents message={error}></ErrorComponents>;
     }
 
     return (
@@ -195,14 +198,6 @@ export default function UpdateRuleEvent() {
                             {t('ruleEvent.edit' as keyof typeof t)}
                         </h1>
                     </div>
-
-                    {error && (
-                        <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
-                            <p className="text-red-700 text-sm font-medium">
-                                {error}
-                            </p>
-                        </div>
-                    )}
 
                     <div className="flex flex-col gap-2">
                         <label

@@ -11,6 +11,7 @@ import { MdArrowBack, MdCheck } from 'react-icons/md';
 import { UserService } from '@/src/services/userService';
 import { UpdateUser } from '@/src/types/interfaces/updateUser';
 import Loading from '@/src/components/loading';
+import ErrorComponents from '@/src/components/error';
 
 export default function ProfileEditPage() {
     const { t, locale } = useI18n();
@@ -122,8 +123,7 @@ export default function ProfileEditPage() {
 
                 router.push(`/${locale}/profile`);
             }
-        } catch (err) {
-            void err;
+        } catch {
             setError(t('error.updateProfileFailed' as keyof typeof t));
         } finally {
             setIsSaving(false);
@@ -140,19 +140,12 @@ export default function ProfileEditPage() {
 
     if (error && !user) {
         return (
-            <Background className="flex items-center justify-center min-h-screen p-4">
-                <Card>
-                    <div className="text-center">
-                        <p className="text-neutral-600 mb-4">{error}</p>
-                        <button
-                            onClick={() => router.push(`/${locale}/profile`)}
-                            className="text-orange-500 hover:text-orange-600 font-semibold transition"
-                        >
-                            {t('common.goBack' as keyof typeof t)}
-                        </button>
-                    </div>
-                </Card>
-            </Background>
+            <ErrorComponents
+                message={error}
+                showButton={true}
+                buttonText={t('common.goBack' as keyof typeof t)}
+                onButtonClick={() => router.push(`/${locale}/profile`)}
+            ></ErrorComponents>
         );
     }
 
