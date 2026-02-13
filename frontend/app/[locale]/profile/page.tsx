@@ -8,6 +8,7 @@ import { useI18n } from '@/src/i18n/useI18n';
 import { UserStore } from '@/src/store/userStore';
 import { User } from '@/src/models/User';
 import { MdEdit, MdLogout, MdEmail, MdPerson } from 'react-icons/md';
+import Loading from '@/src/components/loading';
 
 export default function ProfilePage() {
     const { t, locale } = useI18n();
@@ -52,13 +53,7 @@ export default function ProfilePage() {
     };
 
     if (loading) {
-        return (
-            <Background className="flex items-center justify-center min-h-screen">
-                <div className="text-neutral-600">
-                    {t('common.loading' as keyof typeof t)}
-                </div>
-            </Background>
-        );
+        return <Loading />;
     }
 
     if (error && !user) {

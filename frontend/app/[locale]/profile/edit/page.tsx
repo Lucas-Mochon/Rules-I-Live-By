@@ -10,6 +10,7 @@ import { User } from '@/src/models/User';
 import { MdArrowBack, MdCheck } from 'react-icons/md';
 import { UserService } from '@/src/services/userService';
 import { UpdateUser } from '@/src/types/interfaces/updateUser';
+import Loading from '@/src/components/loading';
 
 export default function ProfileEditPage() {
     const { t, locale } = useI18n();
@@ -134,13 +135,7 @@ export default function ProfileEditPage() {
     };
 
     if (loading) {
-        return (
-            <Background className="flex items-center justify-center min-h-screen">
-                <div className="text-neutral-600">
-                    {t('common.loading' as keyof typeof t)}
-                </div>
-            </Background>
-        );
+        return <Loading />;
     }
 
     if (error && !user) {

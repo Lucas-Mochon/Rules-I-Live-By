@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import { Rule } from '@/src/models/Rule';
 import { RuleStatus } from '@/src/types/enum/ruleStatus';
 import { MdEdit, MdArchive } from 'react-icons/md';
+import Loading from '@/src/components/loading';
 
 export default function RuleDetail() {
     const { t, locale } = useI18n();
@@ -75,11 +76,7 @@ export default function RuleDetail() {
     };
 
     if (loading) {
-        return (
-            <Background className="flex items-center justify-center min-h-screen">
-                <div className="text-neutral-600">{t('loading')}</div>
-            </Background>
-        );
+        return <Loading />;
     }
 
     if (error || !rule) {

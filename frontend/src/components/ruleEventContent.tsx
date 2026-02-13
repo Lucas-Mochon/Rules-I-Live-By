@@ -12,6 +12,7 @@ import RuleEventFilters from '@/src/components/ruleEventFilter';
 import RulePagination from '@/src/components/rulePagination';
 import { useRuleEventListContext } from '../context/ruleEventListContext';
 import { RuleEvent } from '../models/ruleEvent';
+import Loading from './loading';
 
 export default function RuleEventContent() {
     const { t } = useI18n();
@@ -101,6 +102,10 @@ export default function RuleEventContent() {
         router.push(`/${locale}/rule-event/create`);
     };
 
+    if (loading) {
+        return <Loading />;
+    }
+
     return (
         <Background>
             <RuleEventFilters
@@ -129,13 +134,7 @@ export default function RuleEventContent() {
 
             <div className="px-4 sm:px-6 md:px-8 lg:px-12">
                 <div className="flex flex-wrap justify-around gap-6 min-h-96">
-                    {loading ? (
-                        <div className="w-full text-center py-12">
-                            <p className="text-neutral-600">
-                                {t('common.loading' as keyof typeof t)}
-                            </p>
-                        </div>
-                    ) : ruleEvents.length > 0 ? (
+                    {ruleEvents.length > 0 ? (
                         ruleEvents.map((ruleEvent) => (
                             <div
                                 key={ruleEvent.id}

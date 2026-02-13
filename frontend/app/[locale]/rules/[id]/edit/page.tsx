@@ -11,6 +11,7 @@ import { useRouter, useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { RuleStatus } from '@/src/types/enum/ruleStatus';
 import { UpdateRule as UpdateRuleDto } from '@/src/types/interfaces/updateRule';
+import Loading from '@/src/components/loading';
 
 interface FormData {
     title: string;
@@ -172,17 +173,7 @@ export default function UpdateRule() {
     };
 
     if (initialLoading) {
-        return (
-            <Background className="flex items-center justify-center min-h-screen p-4">
-                <Card>
-                    <div className="text-center py-8">
-                        <p className="text-neutral-600">
-                            {t('common.loading' as keyof typeof t)}
-                        </p>
-                    </div>
-                </Card>
-            </Background>
-        );
+        return <Loading />;
     }
 
     return (

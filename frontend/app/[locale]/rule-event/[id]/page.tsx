@@ -9,6 +9,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { RuleEvent } from '@/src/models/ruleEvent';
 import { MdEdit } from 'react-icons/md';
+import Loading from '@/src/components/loading';
 
 export default function RuleEventDetail() {
     const { t, locale } = useI18n();
@@ -59,13 +60,7 @@ export default function RuleEventDetail() {
     };
 
     if (loading) {
-        return (
-            <Background className="flex items-center justify-center min-h-screen">
-                <div className="text-neutral-600">
-                    {t('common.loading' as keyof typeof t)}
-                </div>
-            </Background>
-        );
+        return <Loading />;
     }
 
     if (error || !ruleEvent) {

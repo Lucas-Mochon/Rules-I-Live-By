@@ -2,6 +2,7 @@
 
 import Background from '@/src/components/background';
 import Card from '@/src/components/card';
+import Loading from '@/src/components/loading';
 import { useI18n } from '@/src/i18n/useI18n';
 import { RuleService } from '@/src/services/ruleService';
 import { UserStore } from '@/src/store/userStore';
@@ -57,20 +58,7 @@ export default function Dashboard() {
     }, []);
 
     if (loading) {
-        return (
-            <Background className="flex items-center justify-center min-h-screen">
-                <Card>
-                    <div className="text-center py-12">
-                        <div className="inline-block animate-spin text-3xl mb-4">
-                            ⏳
-                        </div>
-                        <p className="text-neutral-600">
-                            {t('loading' as keyof typeof t)}
-                        </p>
-                    </div>
-                </Card>
-            </Background>
-        );
+        return <Loading />;
     }
 
     return (

@@ -2,6 +2,7 @@
 
 import Background from '@/src/components/background';
 import Card from '@/src/components/card';
+import Loading from '@/src/components/loading';
 import { useI18n } from '@/src/i18n/useI18n';
 import { RuleEventService } from '@/src/services/ruleEventService';
 import { RuleEventStore } from '@/src/store/ruleEventStore';
@@ -179,17 +180,7 @@ export default function UpdateRuleEvent() {
     };
 
     if (initialLoading) {
-        return (
-            <Background className="flex items-center justify-center min-h-screen p-4">
-                <Card>
-                    <div className="text-center py-8">
-                        <p className="text-neutral-600">
-                            {t('common.loading' as keyof typeof t)}
-                        </p>
-                    </div>
-                </Card>
-            </Background>
-        );
+        return <Loading />;
     }
 
     return (

@@ -11,6 +11,7 @@ import { useEffect, useState, useRef } from 'react';
 import { Rule } from '@/src/models/Rule';
 import { RuleService } from '@/src/services/ruleService';
 import { EventTypeEnum } from '@/src/types/enum/eventType';
+import Loading from '@/src/components/loading';
 
 export default function CreateRuleEvent() {
     const { t, locale } = useI18n();
@@ -126,17 +127,7 @@ export default function CreateRuleEvent() {
     };
 
     if (loadingRules) {
-        return (
-            <Background className="flex items-center justify-center min-h-screen p-4">
-                <Card>
-                    <div className="text-center">
-                        <p className="text-neutral-600">
-                            {t('common.loading' as keyof typeof t)}
-                        </p>
-                    </div>
-                </Card>
-            </Background>
-        );
+        return <Loading />;
     }
 
     return (
