@@ -77,7 +77,8 @@
         "profile": "Perfil",
         "rules": "Reglas",
         "fractures": "Rupturas",
-        "respect": "Cumplida"
+        "respect": "Cumplida",
+        "language": "Idioma"
     },
     "auth": {
         "username": "Nombre de usuario",

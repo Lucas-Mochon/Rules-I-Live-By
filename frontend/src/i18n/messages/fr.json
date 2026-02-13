@@ -77,7 +77,8 @@
         "profile": "Soi",
         "rules": "Règles",
         "fractures": "Fractures",
-        "respect": "Respectée"
+        "respect": "Respectée",
+        "language": "Language"
     },
     "auth": {
         "username": "Nom d'utilisateur",
