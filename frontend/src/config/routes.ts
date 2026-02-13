@@ -9,6 +9,10 @@ export const PROTECTED_ROUTES = [
     'rules/[id]/edit',
     'broken',
     'respected',
+    'rule-event',
+    'rule-event/create',
+    'rule-event/[id]',
+    'rule-event/[id]/edit',
 ];
 
 export function isPublicRoute(pathname: string): boolean {

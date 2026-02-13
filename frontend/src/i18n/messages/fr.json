@@ -3,6 +3,7 @@
     "loading": "Chargement ...",
     "error": {
         "error": "Erreur interne",
+        "loadData": "Erreur lors du chargement des données",
         "loginFailed": "Échec de la connexion. Veuillez vérifier vos informations d'identification et réessayer.",
         "registrationFailed": "Échec de l'inscription. Veuillez vérifier vos informations et réessayer.",
         "createRuleFailed": "Échec de la création de la règle.",
@@ -19,7 +20,10 @@
         "ruleRequired": "Veuillez sélectionner une règle",
         "emotionRequired": "L'émotion est requise",
         "contextRequired": "Le contexte est requis",
-        "createRuleEventFailed": "Erreur lors de la création de l'événement"
+        "createRuleEventFailed": "Erreur lors de la création de l'événement",
+        "dashboardLoadFailed": "Erreur lors du chargement du tableau de bord",
+        "partialDataLoad": "Certaines données n'ont pas pu être chargées",
+        "noDashboardData": "Aucune donnée disponible. Créez d'abord des règles et des événements."
     },
     "home": {
         "title": "Les règles que je me fixe (jusqu'à ce que je les brise)",
@@ -85,6 +89,19 @@
         "no_account": "Vous n'avez pas de compte ? ",
         "have_account": "Vous avez déjà un compte ? ",
         "logout": "Déconnexion"
+    },
+    "dashboard": {
+        "title": "Tableau de bord",
+        "subtitle": "Suivi de vos règles et statistiques",
+        "mostBroken": "Règle la plus brisée",
+        "mostRespected": "Règle la plus respectée",
+        "respectRate": "Taux de respect",
+        "clickToView": "Cliquez pour voir les détails",
+        "noData": "Aucune donnée disponible",
+        "excellent": "Excellent! 🎉",
+        "good": "Bon travail 👍",
+        "needsImprovement": "À améliorer 💪",
+        "tip": "Conseil: Cliquez sur une règle pour voir plus de détails et suivre votre progression"
     },
     "rule": {
         "create": "Créer une nouvelle règle",

@@ -11,18 +11,18 @@ import java.util.List;
 @Repository
 public interface RuleRepository extends MongoRepository<Rule, String> {
 
-    List<Rule> findByUserId(String userId);
+        List<Rule> findByUserId(String userId);
 
-    List<Rule> findByUserIdAndStatus(String userId, RuleStatusEnum status);
+        List<Rule> findByUserIdAndStatus(String userId, RuleStatusEnum status);
 
-    List<Rule> findByUserIdAndCreatedAtBetween(
-            String userId,
-            LocalDateTime fromDate,
-            LocalDateTime toDate);
+        List<Rule> findByUserIdAndCreatedAtBetween(
+                        String userId,
+                        LocalDateTime fromDate,
+                        LocalDateTime toDate);
 
-    List<Rule> findByUserIdAndStatusAndCreatedAtBetween(
-            String userId,
-            RuleStatusEnum status,
-            LocalDateTime fromDate,
-            LocalDateTime toDate);
+        List<Rule> findByUserIdAndStatusAndCreatedAtBetween(
+                        String userId,
+                        RuleStatusEnum status,
+                        LocalDateTime fromDate,
+                        LocalDateTime toDate);
 }

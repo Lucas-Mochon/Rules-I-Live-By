@@ -9,6 +9,7 @@ import com.RulesILiveBy.dto.rules.EditRuleRequestDto;
 import com.RulesILiveBy.dto.rules.ListRequestDto;
 import com.RulesILiveBy.dto.rules.ListRulesResponse;
 import com.RulesILiveBy.dto.rules.RuleResponse;
+import com.RulesILiveBy.dto.rules.StatsRespectedDto;
 import com.RulesILiveBy.service.RuleService;
 
 @RestController
@@ -35,6 +36,36 @@ public class RuleController {
         try {
             RuleResponse reponse = ruleService.getOne(id);
             return ResponseEntity.ok(ApiResponse.success(reponse));
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage()));
+        }
+    }
+
+    @GetMapping("/most-broken/{userId}")
+    public ResponseEntity<Object> mostBroken(@PathVariable String userId) {
+        try {
+            RuleResponse response = ruleService.mostBroken(userId);
+            return ResponseEntity.ok(ApiResponse.success(response));
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage()));
+        }
+    }
+
+    @GetMapping("/most-respected/{userId}")
+    public ResponseEntity<Object> mostRespected(@PathVariable String userId) {
+        try {
+            RuleResponse response = ruleService.mostRespected(userId);
+            return ResponseEntity.ok(ApiResponse.success(response));
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage()));
+        }
+    }
+
+    @GetMapping("/stats/respected/{userId}")
+    public ResponseEntity<Object> getMethodName(@PathVariable String userId) {
+        try {
+            StatsRespectedDto response = ruleService.statsRespected(userId);
+            return ResponseEntity.ok(ApiResponse.success(response));
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage()));
         }

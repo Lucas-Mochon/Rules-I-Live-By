@@ -3,7 +3,9 @@ import { Rule } from '../models/Rule';
 import { RuleStore } from '../store/rulesStore';
 import { RuleStatus } from '../types/enum/ruleStatus';
 import { CreateRule } from '../types/interfaces/createRule';
+import { DashboardStats } from '../types/interfaces/dashboardStats';
 import { ListRulesPayload } from '../types/interfaces/listRulesPayload';
+import { StatsRespected } from '../types/interfaces/statsRespected';
 import { UpdateRule } from '../types/interfaces/updateRule';
 import { RuleApiService } from './api/ruleApiService';
 
@@ -36,6 +38,35 @@ export class RuleService {
         const rule: Rule = await this.api.create(data);
         await this.ruleStore.setRule(rule);
         return rule;
+    }
+
+    async mostBroken(userId: string): Promise<Rule> {
+        const rule: Rule = await this.api.mostBroken(userId);
+        await this.ruleStore.setRule(rule);
+        return rule;
+    }
+
+    async mostRespected(userId: string): Promise<Rule> {
+        const rule: Rule = await this.api.mostRespected(userId);
+        await this.ruleStore.setRule(rule);
+        return rule;
+    }
+
+    async statsRespected(userId: string): Promise<StatsRespected> {
+        const stats: StatsRespected = await this.api.statsRespected(userId);
+        return stats;
+    }
+
+    async dashboardStats(userId: string): Promise<DashboardStats> {
+        const stats: StatsRespected = await this.statsRespected(userId);
+        const mostBroken: Rule = await this.mostBroken(userId);
+        const mostRespected: Rule = await this.mostRespected(userId);
+
+        return {
+            taux: stats,
+            mostBroken: mostBroken,
+            mostRespected: mostRespected,
+        };
     }
 
     async update(data: UpdateRule) {

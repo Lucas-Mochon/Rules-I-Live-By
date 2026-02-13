@@ -3,6 +3,7 @@
     "loading": "Cargando...",
     "error": {
         "error": "Error interno",
+        "loadData": "Error al cargar los datos",
         "loginFailed": "Error al iniciar sesión. Verifica tus credenciales e inténtalo de nuevo.",
         "registrationFailed": "Error en el registro. Verifica tu información e inténtalo de nuevo.",
         "createRuleFailed": "Error al crear la regla.",
@@ -19,7 +20,10 @@
         "ruleRequired": "Por favor selecciona una regla.",
         "emotionRequired": "La emoción es obligatoria.",
         "contextRequired": "El contexto es obligatorio.",
-        "createRuleEventFailed": "Error al crear el evento."
+        "createRuleEventFailed": "Error al crear el evento.",
+        "dashboardLoadFailed": "Error al cargar el panel de control",
+        "partialDataLoad": "Algunos datos no pudieron cargarse",
+        "noDashboardData": "No hay datos disponibles. Primero crea reglas y eventos."
     },
     "home": {
         "title": "Las Reglas Que Me Impongo (Hasta Que Las Rompo)",
@@ -85,6 +89,19 @@
         "no_account": "¿No tienes cuenta? ",
         "have_account": "¿Ya tienes cuenta? ",
         "logout": "Cerrar sesión"
+    },
+    "dashboard": {
+        "title": "Panel de control",
+        "subtitle": "Seguimiento de tus reglas y estadísticas",
+        "mostBroken": "Regla más incumplida",
+        "mostRespected": "Regla más respetada",
+        "respectRate": "Tasa de cumplimiento",
+        "clickToView": "Haz clic para ver los detalles",
+        "noData": "No hay datos disponibles",
+        "excellent": "¡Excelente! 🎉",
+        "good": "Buen trabajo 👍",
+        "needsImprovement": "Necesita mejorar 💪",
+        "tip": "Consejo: Haz clic en una regla para ver más detalles y seguir tu progreso"
     },
     "rule": {
         "create": "Crear una nueva regla",

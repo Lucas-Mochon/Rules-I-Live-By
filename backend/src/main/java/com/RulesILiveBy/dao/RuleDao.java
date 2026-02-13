@@ -7,10 +7,16 @@ import com.RulesILiveBy.dto.rules.EditRuleRequestDto;
 import com.RulesILiveBy.dto.rules.ListRequestDto;
 import com.RulesILiveBy.dto.rules.ListRulesResponse;
 import com.RulesILiveBy.dto.rules.RuleResponse;
+import com.RulesILiveBy.dto.rules.StatsRespectedDto;
 import com.RulesILiveBy.entity.Rule;
+import com.RulesILiveBy.entity.RuleEvent;
+import com.RulesILiveBy.repository.RuleEventRepository;
 import com.RulesILiveBy.repository.RuleRepository;
+import com.RulesILiveBy.types.EventTypeEnum;
 import com.RulesILiveBy.types.RuleStatusEnum;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -19,9 +25,11 @@ import java.util.stream.Collectors;
 @Component
 public class RuleDao {
     private final RuleRepository ruleRepository;
+    private final RuleEventRepository ruleEventRepository;
 
-    public RuleDao(RuleRepository ruleRepository) {
+    public RuleDao(RuleRepository ruleRepository, RuleEventRepository ruleEventRepository) {
         this.ruleRepository = ruleRepository;
+        this.ruleEventRepository = ruleEventRepository;
     }
 
     public ListRulesResponse list(ListRequestDto request) {
@@ -63,6 +71,71 @@ public class RuleDao {
                 .orElseThrow(() -> new RuntimeException("Rule not found with id: " + id));
 
         return mapToRuleResponse(rule);
+    }
+
+    public RuleResponse mostBroken(String userId) {
+        List<Rule> userRules = ruleRepository.findByUserId(userId);
+
+        if (userRules.isEmpty()) {
+            throw new RuntimeException("Aucune règle trouvée pour cet utilisateur");
+        }
+
+        Rule mostBrokenRule = userRules.stream()
+                .max((rule1, rule2) -> {
+                    long brokenCount1 = ruleEventRepository
+                            .findByRuleIdAndType(rule1.getId(), EventTypeEnum.BROKEN)
+                            .size();
+                    long brokenCount2 = ruleEventRepository
+                            .findByRuleIdAndType(rule2.getId(), EventTypeEnum.BROKEN)
+                            .size();
+                    return Long.compare(brokenCount1, brokenCount2);
+                })
+                .orElseThrow(() -> new RuntimeException("Impossible de déterminer la règle la plus brisée"));
+
+        return mapToRuleResponse(mostBrokenRule);
+    }
+
+    public RuleResponse mostRespected(String userId) {
+        List<Rule> userRules = ruleRepository.findByUserId(userId);
+
+        if (userRules.isEmpty()) {
+            throw new RuntimeException("Aucune règle trouvée pour cet utilisateur");
+        }
+
+        Rule mostRespectedRule = userRules.stream()
+                .max((rule1, rule2) -> {
+                    long respectedCount1 = ruleEventRepository
+                            .findByRuleIdAndType(rule1.getId(), EventTypeEnum.RESPECTED)
+                            .size();
+                    long respectedCount2 = ruleEventRepository
+                            .findByRuleIdAndType(rule2.getId(), EventTypeEnum.RESPECTED)
+                            .size();
+                    return Long.compare(respectedCount1, respectedCount2);
+                })
+                .orElseThrow(() -> new RuntimeException("Impossible de déterminer la règle la plus respectée"));
+
+        return mapToRuleResponse(mostRespectedRule);
+    }
+
+    public StatsRespectedDto statsRespected(String userId) {
+        List<RuleEvent> allEvents = ruleEventRepository.findByUserId(userId);
+
+        if (allEvents.isEmpty()) {
+            throw new RuntimeException("Aucun événement trouvé pour cet utilisateur");
+        }
+
+        long respectedCount = allEvents.stream()
+                .filter(event -> event.getType() == EventTypeEnum.RESPECTED)
+                .count();
+
+        BigDecimal taux = BigDecimal.valueOf(respectedCount)
+                .divide(BigDecimal.valueOf(allEvents.size()), 2, RoundingMode.HALF_UP)
+                .multiply(BigDecimal.valueOf(100));
+
+        StatsRespectedDto response = new StatsRespectedDto();
+        response.setTaux(taux);
+
+        return response;
     }
 
     public RuleResponse create(CreateRuleRequestDto request) {

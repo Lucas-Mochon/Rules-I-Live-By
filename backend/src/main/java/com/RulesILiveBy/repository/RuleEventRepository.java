@@ -26,4 +26,8 @@ public interface RuleEventRepository extends MongoRepository<RuleEvent, String> 
                         EventTypeEnum type,
                         LocalDateTime fromDate,
                         LocalDateTime toDate);
+
+        List<RuleEvent> findByRuleIdAndType(String ruleId, EventTypeEnum type);
+
+        List<RuleEvent> findByRuleId(String ruleId);
 }

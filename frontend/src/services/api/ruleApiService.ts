@@ -6,6 +6,7 @@ import { Rule } from '@/src/models/Rule';
 import { CreateRule } from '@/src/types/interfaces/createRule';
 import { UpdateRule } from '@/src/types/interfaces/updateRule';
 import { UpdateRulePayload } from '@/src/types/interfaces/UpdateRulePayload';
+import { StatsRespected } from '@/src/types/interfaces/statsRespected';
 
 export class RuleApiService extends AbstractApiService {
     private static instance: RuleApiService;
@@ -55,6 +56,48 @@ export class RuleApiService extends AbstractApiService {
                 Authorization: `Bearer ${token}`,
             },
         });
+        return res.data;
+    }
+
+    async mostBroken(userId: string): Promise<Rule> {
+        const token = this.authStore.getToken();
+        if (!token) throw new Error('No token available');
+        const res: Response<Rule> = await this.get(
+            `/rules/most-broken/${userId}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+        return res.data;
+    }
+
+    async mostRespected(userId: string): Promise<Rule> {
+        const token = this.authStore.getToken();
+        if (!token) throw new Error('No token available');
+        const res: Response<Rule> = await this.get(
+            `/rules/most-respected/${userId}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+        return res.data;
+    }
+
+    async statsRespected(userId: string): Promise<StatsRespected> {
+        const token = this.authStore.getToken();
+        if (!token) throw new Error('No token available');
+        const res: Response<StatsRespected> = await this.get(
+            `/rules/stats/respected/${userId}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
         return res.data;
     }
 

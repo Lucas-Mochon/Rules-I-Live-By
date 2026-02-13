@@ -10,6 +10,7 @@ import com.RulesILiveBy.dto.rules.EditRuleRequestDto;
 import com.RulesILiveBy.dto.rules.ListRequestDto;
 import com.RulesILiveBy.dto.rules.ListRulesResponse;
 import com.RulesILiveBy.dto.rules.RuleResponse;
+import com.RulesILiveBy.dto.rules.StatsRespectedDto;
 import com.RulesILiveBy.utils.JwtUtil;
 
 @Service
@@ -27,7 +28,34 @@ public class RuleService {
 
     @Transactional
     public RuleResponse getOne(String id) {
+        if (id == null || id.isEmpty()) {
+            throw new RuntimeException("id ne peut pas être vide");
+        }
         return ruleDao.getOne(id);
+    }
+
+    @Transactional
+    public RuleResponse mostBroken(String userId) {
+        if (userId == null || userId.isEmpty()) {
+            throw new RuntimeException("userId ne peut pas être vide");
+        }
+        return ruleDao.mostBroken(userId);
+    }
+
+    @Transactional
+    public RuleResponse mostRespected(String userId) {
+        if (userId == null || userId.isEmpty()) {
+            throw new RuntimeException("userId ne peut pas être vide");
+        }
+        return ruleDao.mostRespected(userId);
+    }
+
+    @Transactional
+    public StatsRespectedDto statsRespected(String userId) {
+        if (userId == null || userId.isEmpty()) {
+            throw new RuntimeException("userId ne peut pas être vide");
+        }
+        return ruleDao.statsRespected(userId);
     }
 
     @Transactional
@@ -37,11 +65,17 @@ public class RuleService {
 
     @Transactional
     public RuleResponse update(String id, EditRuleRequestDto request) {
+        if (id == null || id.isEmpty()) {
+            throw new RuntimeException("id ne peut pas être vide");
+        }
         return ruleDao.update(id, request);
     }
 
     @Transactional
     public RuleResponse archive(String id) {
+        if (id == null || id.isEmpty()) {
+            throw new RuntimeException("id ne peut pas être vide");
+        }
         return ruleDao.archive(id);
     }
 }

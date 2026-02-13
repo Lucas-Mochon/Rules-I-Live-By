@@ -3,6 +3,7 @@
     "loading": "Loading...",
     "error": {
         "error": "Internal error",
+        "loadData": "Error while loading data",
         "loginFailed": "Login failed. Please check your credentials and try again.",
         "registrationFailed": "Registration failed. Please check your information and try again.",
         "createRuleFailed": "Failed to create rule.",
@@ -19,7 +20,10 @@
         "ruleRequired": "Please select a rule.",
         "emotionRequired": "Emotion is required.",
         "contextRequired": "Context is required.",
-        "createRuleEventFailed": "Error creating event."
+        "createRuleEventFailed": "Error creating event.",
+        "dashboardLoadFailed": "Error while loading the dashboard",
+        "partialDataLoad": "Some data could not be loaded",
+        "noDashboardData": "No data available. Please create rules and events first."
     },
     "home": {
         "title": "The Rules I Set for Myself (Until I Break Them)",
@@ -85,6 +89,19 @@
         "no_account": "Don't have an account? ",
         "have_account": "Already have an account? ",
         "logout": "Log Out"
+    },
+    "dashboard": {
+        "title": "Dashboard",
+        "subtitle": "Tracking your rules and statistics",
+        "mostBroken": "Most broken rule",
+        "mostRespected": "Most respected rule",
+        "respectRate": "Compliance rate",
+        "clickToView": "Click to view details",
+        "noData": "No data available",
+        "excellent": "Excellent! 🎉",
+        "good": "Good job 👍",
+        "needsImprovement": "Needs improvement 💪",
+        "tip": "Tip: Click on a rule to see more details and track your progress"
     },
     "rule": {
         "create": "Create a new rule",
